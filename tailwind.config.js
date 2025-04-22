@@ -17,11 +17,21 @@ module.exports = {
           DEFAULT: '#6B7280',
           dark: '#4B5563',
         },
+        grey: '#cacaca',
+        black: '#252523',
+        white: '#ffffff',
+        red: '#E70000',
+        pink: '#FFCDE8',
+        orange: '#CC4624',
+        yellow: '#F2E47F',
+        blue: '#0074C9',
+        cream: '#FFFAE0',
       },
       fontFamily: {
         // Add your custom fonts here
         sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
         mono: ['var(--font-geist-mono)', 'monospace'],
+        exposure: ['EXPOSURE', 'sans-serif']
       },
       spacing: {
         // Add your custom spacing values here
@@ -41,4 +51,4 @@ module.exports = {
   plugins: [],
   // Enable dark mode
   darkMode: 'media', // or 'class' for manual dark mode
-} 
+}
