@@ -9,7 +9,7 @@ export default function Home() {
       <Hero />
       <MarqueeComponent text="7/8 - 9/8 2025" />
       <Posters />
-      <MarqueeComponent text="VI LUKKER AF FOR SOMMEREN" direction="right" />
+      <MarqueeComponent text="VI TAKKER AF FOR SOMMEREN" direction="right" />
     </div>
   );
 }
