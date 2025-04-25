@@ -2,18 +2,7 @@
 
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Lenis from "lenis";
-import 'lenis/dist/lenis.css'
-
-// Initialize Lenis
-const lenis = new Lenis({
-  autoRaf: true,
-});
-
-// Listen for the scroll event and log the event data
-lenis.on('scroll', (e) => {
-    console.log(e);
-  });
+import SmoothScroll from "../lib/SmoothScroll";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,7 +14,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -36,6 +24,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <SmoothScroll />
         {children}
       </body>
     </html>
