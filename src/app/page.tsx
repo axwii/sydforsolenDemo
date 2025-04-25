@@ -1,5 +1,5 @@
 "use client";
-
+import MarqueeComponent from "./components/marquee";
 import Hero from "./components/hero";
 import Posters from "./components/posters/posters";
 
