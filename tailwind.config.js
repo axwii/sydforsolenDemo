@@ -73,7 +73,19 @@ module.exports = {
   			exposure: [
   				'EXPOSURE',
   				'sans-serif'
-  			]
+  			],
+			helvetica: [
+				'helvetica-bold',
+				'helvetica-medium',
+				'helvetica-thin',
+				'helvetica-light',
+				'helvetica-roman'
+			],
+			'helvetica-bold': ['helvetica-bold', 'sans-serif'],
+			'helvetica-medium': ['helvetica-medium', 'sans-serif'],
+			'helvetica-thin': ['helvetica-thin', 'sans-serif'],
+			'helvetica-light': ['helvetica-light', 'sans-serif'],
+			'helvetica-roman': ['helvetica-roman', 'sans-serif']
   		},
   		spacing: {
   			'128': '32rem',
