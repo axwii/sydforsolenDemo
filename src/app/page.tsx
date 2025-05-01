@@ -2,6 +2,8 @@
 import MarqueeComponent from "./components/marquee";
 import Hero from "./components/hero";
 import Posters from "./components/posters/posters";
+import Subscribe from "./components/subscribe";
+
 import HorizontalScroll from "./components/horizontalscroll/horizontalscroll";
 
 export default function Home() {
@@ -12,6 +14,7 @@ export default function Home() {
       <Posters />
       <HorizontalScroll />
       <MarqueeComponent text="VI TAKKER AF FOR SOMMEREN" direction="right" />
+      <Subscribe />
     </div>
   );
 }
