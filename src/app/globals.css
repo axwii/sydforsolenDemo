@@ -9,6 +9,8 @@
   src: url("/fonts/Exposure.ttf") format("truetype");
 }
 
+
+
 @font-face {
   font-family: "helvetica-bold";
   src: url("/fonts/HelveticaNeue-Bold.otf") format("opentype");
@@ -33,12 +35,6 @@
   font-family: "helvetica-roman";
   src: url("/fonts/HelveticaNeue-Roman.otf") format("opentype");
 }
-
-
-
-
-
-
 
 @layer base {
   :root {
@@ -95,8 +91,6 @@
     --chart-5: 340 75% 55%;
   }
 }
-
-
 
 @layer base {
   * {
