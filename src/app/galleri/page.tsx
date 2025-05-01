@@ -57,15 +57,15 @@ export default function ParallaxScroll() {
     }, []);
 
     return (
-        <div ref={container} className="min-h-screen bg-gradient-to-br from-gray-800 via-white to-gray-800">
-            <div className="top-0 z-10">
-                <div className="ml-[10vw] py-4">
+        <section className="min-h-screen bg-gradient-to-br from-gray-800 via-white to-gray-800">
+            <div className="min-h-screen py-20">
+                <div className="ml-[10vw]">
                     <h1 ref={title1} className="m-0 text-[5vw] leading-[5vw] uppercase font-exposure">Gallery</h1>
                     <h1 className="m-0 text-[5vw] leading-[5vw] uppercase font-exposure">Scroll</h1>
                 </div>
-            </div>
 
-            <div className="mt-[10vh]">
+
+            <div>
                 {imageSets.map((images, index) => (
                     <GalleryImageSection
                         key={`section_${index}`}
@@ -78,5 +78,6 @@ export default function ParallaxScroll() {
                 ))}
             </div>
         </div>
+        </section>
     );
 }

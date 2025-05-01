@@ -22,7 +22,7 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
 
   return (
     <div 
-      className={`fixed inset-0 z-40 transition-all duration-300 font-exposure ${
+      className={`fixed inset-0 z-40 transition-all duration-300  font-exposure ${
         isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
       }`}
     >
