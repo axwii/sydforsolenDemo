@@ -3,8 +3,10 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "../lib/SmoothScroll";
-import Navigation from "./components/layout/navigation";
+import Navigation from "./components/layout/header/navigation";
 import Footer from "./components/layout/footer";
+import { usePathname } from "next/navigation";
+import Header from "./components/layout/header/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,13 +23,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SmoothScroll />
-        <Navigation />
+        {!isHomePage && <Header />}
+        {isHomePage && <Navigation />}
         {children}
         <Footer />
       </body>

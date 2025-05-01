@@ -34,12 +34,12 @@ const Navigation = () => {
 
   return (
     <motion.nav variants={container} initial="hidden" animate="show" className={`${isSticky ? "fixed top-0" : "absolute bottom-0"} left-0 w-full h-[50px] flex rounded-t-sm overflow-hidden z-50`}>
-      {["MUSIK", "PARTNERE", "FRIVILLIG", "PRAKTISK", "KØB BILLETTER"].map((text, index) => (
+      {["MUSIK", "PARTNERE", "FRIVILLIG", "GALLERI", "PRAKTISK", "KØB BILLETTER"].map((text, index) => (
         <Link href={`/${text.toLowerCase().replace(" ", "-")}`} key={index} className="flex-1">
           <motion.div
             variants={item}
             className={`h-full flex items-center justify-center border-l border-black/10 first:border-l-0 font-exposure font-extrabold 
-            ${index === 4 ? "bg-gradient-to-br from-[#2D2D2D] to-[#1D1D1D] text-white" : "bg-gradient-to-br from-[#E5E5E5] to-[#D9D9D9]"}
+            ${index === 5 ? "bg-gradient-to-br from-[#2D2D2D] to-[#1D1D1D] text-white" : "bg-gradient-to-br from-[#E5E5E5] to-[#D9D9D9]"}
             hover:bg-opacity-90 transition-all duration-300 hover:shadow-inner`}
           >
             {text}

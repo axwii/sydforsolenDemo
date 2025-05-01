@@ -58,7 +58,7 @@ export default function ParallaxScroll() {
 
     return (
         <div ref={container} className="min-h-screen bg-gradient-to-br from-gray-800 via-white to-gray-800">
-            <div className="sticky top-0 z-10">
+            <div className="top-0 z-10">
                 <div className="ml-[10vw] py-4">
                     <h1 ref={title1} className="m-0 text-[5vw] leading-[5vw] uppercase font-exposure">Gallery</h1>
                     <h1 className="m-0 text-[5vw] leading-[5vw] uppercase font-exposure">Scroll</h1>

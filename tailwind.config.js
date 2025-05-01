@@ -80,6 +80,12 @@ module.exports = {
       animation: {
         "bounce-slow": "bounce 3s infinite",
       },
+      keyframes: {
+        slideRight: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(0)' }
+        }
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
