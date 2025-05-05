@@ -23,7 +23,7 @@ export default function Header() {
           
           <button 
             onClick={() => setIsOpen(!isOpen)}
-            className="p-2 z-50"
+            className="p-5 z-50"
             aria-label="Menu"
           >
             <div className="w-9 h-6 flex flex-col justify-between group">
