@@ -3,18 +3,21 @@ import MarqueeComponent from "./components/marquee";
 import Hero from "./components/hero";
 import Posters from "./components/posters/posters";
 import Subscribe from "./components/subscribe";
-
 import HorizontalScroll from "./components/horizontalscroll/horizontalscroll";
 
 export default function Home() {
   return (
-    <div>
+    <main className="relative">
       <Hero />
-      <MarqueeComponent text="7/8 - 9/8 2025" />
       <Posters />
+      <div className="relative">
+        <MarqueeComponent text="7/8 - 9/8 2025" />
+      </div>
       <HorizontalScroll />
-      <MarqueeComponent text="VI TAKKER AF FOR SOMMEREN" direction="right" />
+      <div className="relative">
+        <MarqueeComponent text="VI TAKKER AF FOR SOMMEREN" direction="right" />
+      </div>
       <Subscribe />
-    </div>
+    </main>
   );
 }

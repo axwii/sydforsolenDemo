@@ -39,7 +39,7 @@ const Navigation = () => {
           <motion.div
             variants={item}
             className={`h-full flex items-center justify-center border-l border-black/10 first:border-l-0 font-exposure font-extrabold 
-            ${index === 4 ? "bg-gradient-to-br from-[#2D2D2D] to-[#1D1D1D] text-white" : "bg-gradient-to-br from-[#E5E5E5] to-[#D9D9D9]"}
+            ${index === 4 ? "bg-gradient-to-br from-[#151515] to-[#202020] text-white" : "bg-gradient-to-br from-[#E5E5E5] to-[#D9D9D9]"}
             hover:bg-opacity-90 transition-all duration-300 hover:shadow-inner`}
           >
             {text}
