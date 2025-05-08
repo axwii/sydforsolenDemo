@@ -23,11 +23,11 @@ export default function PraktiskPage() {
       </h1>
       <div className="flex flex-col md:flex-row">
         {/* Filter Buttons for Mobile - Placed on top */} 
-        <div className="md:hidden mb-8">
+        <div className="w-full md:hidden mb-8"> {/* MODIFIED: Added w-full */}
           <FilterButtons categories={faqData} activeFilter={activeFilter} onFilterChange={handleFilterChange} />
         </div>
         {/* Filter Buttons for Desktop - Placed on the side */} 
-        <div className="hidden md:block">
+        <div className="hidden md:block md:w-1/4 md:mr-8">
           <FilterButtons categories={faqData} activeFilter={activeFilter} onFilterChange={handleFilterChange} />
         </div>
         <div className="md:w-3/4">
