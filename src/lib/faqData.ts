@@ -52,6 +52,20 @@ export const faqData: FaqCategoryData[] = [
     ],
   },
   {
+    id: "praktisk-frivillig",
+    title: "Praktisk om at være frivillig",
+    questions: [
+      { id: "hvad-lave-frivillig", question: "HVAD SKAL JEG LAVE SOM FRIVILLIG?", answer: "Information om de forskellige roller kommer snarest." },
+      { id: "hvor-laenge-arbejde", question: "HVOR LÆNGE SKAL JEG ARBEJDE?", answer: "Typisk varer en vagt X timer. Mere info følger." },
+      { id: "alkohol-vagt", question: "MÅ MAN DRIKKE ALKOHOL UNDER SIN VAGT?", answer: "Nej, det er ikke tilladt at drikke alkohol under din vagt." },
+      { id: "er-der-forsikring", question: "ER DER FORSIKRING?", answer: "Ja, du er dækket af festivalens forsikring under din vagt." },
+      { id: "overnatte-frivillig", question: "MÅ MAN OVERNATTE SOM FRIVILLIG?", answer: "Information om overnatningsmuligheder for frivillige kommer snarest." },
+      { id: "tilmeldingskrav-frivillig", question: "HVAD ER TILMELDINGSKRAVENE SOM FRIVILLIG?", answer: "Du skal være fyldt 18 år. Specifikke krav vil blive oplyst ved tilmelding." },
+      { id: "ansoege-vennegruppe", question: "KAN MAN ANSØGE SOM VENNEGRUPPE?", answer: "Ja, det er muligt at ansøge som en gruppe. Angiv dette i din ansøgning." },
+      { id: "afbudspolitik", question: "HVAD ER AFBUDSPOLITIKKEN?", answer: "Information om afbudspolitik vil blive tilgængelig her." },
+    ],
+  },
+  {
     id: "glemte-sager",
     title: "GLEMTE SAGER",
     questions: [
