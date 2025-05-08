@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/pages/**/*.{js,ts,jsx,tsx,mdx}", "./src/components/**/*.{js,ts,jsx,tsx,mdx}", "./src/app/**/*.{js,ts,jsx,tsx,mdx}"],
+  content: ["./src/pages/**/*.{js,ts,jsx,tsx,mdx}", "./src/components/**/*.{js,ts,jsx,tsx,mdx}", "./src/app/**/*.{js,ts,jsx,tsx,mdx}", "./src/lib/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
@@ -19,10 +19,11 @@ module.exports = {
         white: "#ffffff",
         red: "#E70000",
         pink: "#FFCDE8",
-        orange: "#CC4624",
+        blue: "#0074C9",
         yellow: "#F2E47F",
         blue: "#0074C9",
         cream: "#FFFAE0",
+        orange: "#CC4624",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
