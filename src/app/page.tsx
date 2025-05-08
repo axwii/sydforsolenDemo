@@ -1,5 +1,4 @@
 "use client";
-import MarqueeComponent from "./components/marquee";
 import Hero from "./components/hero";
 import Posters from "./components/posters/posters";
 import Subscribe from "./components/subscribe";
@@ -10,13 +9,9 @@ export default function Home() {
     <main className="relative">
       <Hero />
       <Posters />
-      <div className="relative">
-        <MarqueeComponent text="7/8 - 9/8 2025" />
-      </div>
+      <div className="relative"></div>
       <HorizontalScroll />
-      <div className="relative">
-        <MarqueeComponent text="VI TAKKER AF FOR SOMMEREN" direction="right" />
-      </div>
+      <div className="relative"></div>
       <Subscribe />
     </main>
   );
