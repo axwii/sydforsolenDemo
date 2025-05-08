@@ -13,6 +13,7 @@ export interface Artist {
 // Define DayData type
 export interface DayData {
   day: string;
+  description: string; // Added description field
   bgColor: string;
   textColor: string;
   sectionClass: string;
@@ -23,6 +24,7 @@ export interface DayData {
 export const musicProgram: DayData[] = [
   {
     day: "Torsdag",
+    description: "En dag dedikeret til indie og alternativ musik i mange nuancer - fra det poetiske til det eksperimenterende. Fredagen byder på stærke kunstnere og åbner festivalen med musik, der rammer både hjertet og nysgerrigheden.",
     bgColor: "bg-red",
     textColor: "text-pink",
     sectionClass: "music-section-thursday",
@@ -36,6 +38,7 @@ export const musicProgram: DayData[] = [
   },
   {
     day: "Fredag",
+    description: "Hip-hop og R&B fylder dagen med rytme, flow og fællesskab. Lørdagen samler nogle af de mest markante navne på tværs af generationer og giver plads til både nye stemmer og legender.",
     bgColor: "bg-yellow",
     textColor: "text-orange",
     sectionClass: "music-section-friday",
@@ -48,6 +51,7 @@ export const musicProgram: DayData[] = [
   },
   {
     day: "Lørdag",
+    description: "Rocken får frit spil med alt fra støj og kraft til det mere drømmende og dybe. Søndagen runder festivalen af med intense koncerter og kunstnere, der tør tage musikken nye steder hen.",
     bgColor: "bg-cream",
     textColor: "text-blue",
     sectionClass: "music-section-saturday",
