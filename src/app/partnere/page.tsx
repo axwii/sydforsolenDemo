@@ -1,4 +1,5 @@
 import Image from "next/image";
+import PageTitle from "../components/PageTitle"; // Added import
 
 // Placeholder data for partners - replace with actual data later
 const partners = [
@@ -13,6 +14,7 @@ const partners = [
 export default function Partners() {
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
+      <PageTitle title="Partnere" /> {/* Added PageTitle component */}
       <h1 className="text-4xl md:text-6xl font-bold mb-12 md:mb-16 font-exposure">
         Vi samarbejder med dem, der gør en forskel
       </h1>

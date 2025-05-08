@@ -7,8 +7,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import ArtistPopup from '../components/ArtistPopup';
 import DayProgramSection from '../components/DayProgramSection';
-import type { Artist, DayData } from '../../lib/musicData'; // Updated import path
-import { musicProgram as initialMusicProgram } from '../../lib/musicData'; // Import placeholder data
+import type { Artist, DayData } from '../../lib/musicData';
+import { musicProgram as initialMusicProgram } from '../../lib/musicData';
+import PageTitle from '../components/PageTitle';
 
 export default function Music() {
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
@@ -38,6 +39,7 @@ export default function Music() {
 
   return (
     <div className="space-y-0 relative">
+      <PageTitle title="Musik" /> {/* Added PageTitle component */}
       {programData.map((dayData: DayData) => (
         <DayProgramSection key={dayData.day} dayData={dayData} onArtistClick={openPopup} />
       ))}

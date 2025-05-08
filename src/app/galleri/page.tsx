@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import GalleryImageSection from "../components/GalleryImageSection";
+import PageTitle from "../components/PageTitle"; // Added import
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -58,6 +59,7 @@ export default function ParallaxScroll() {
 
     return (
         <section className="min-h-screen bg-gradient-to-br from-gray-800 via-white to-gray-800">
+            <PageTitle title="Galleri" /> {/* Added PageTitle component */}
             <div className="min-h-screen py-20">
                 <div className="ml-[10vw]">
                     <h1 ref={title1} className="m-0 text-[5vw] leading-[5vw] uppercase font-exposure">Gallery</h1>

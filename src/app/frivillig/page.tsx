@@ -1,16 +1,18 @@
 import FaqCategory from '../components/FaqCategory';
 import { faqData } from '../../lib/faqData';
 import Image from 'next/image';
+import PageTitle from '../components/PageTitle';
 
 export default function FrivilligPage() {
   const frivilligFaq = faqData.find(category => category.id === 'praktisk-frivillig');
 
   return (
     <div>
+      <PageTitle title="Frivillig" /> {/* Added PageTitle component */}
       {/* Section 1: Title, intro text, buttons - with container */}
       <div className="container mx-auto px-4 py-8">
         <section className="mb-12">
-          <h1 className="text-4xl font-bold mb-4 font-exposure">FRIVILLIG</h1> {/* Changed H1 text */}
+          <h1 className="text-4xl font-bold mb-4 font-exposure">Bliv frivillig på Syd For Solen</h1> {/* Changed H1 text */}
           <p className="mb-6 text-lg max-w-2xl ">
             Vi glæder os til - sammen med dig – at skabe en helt fantastisk festival i Valbyparken, for såvel publikum, artister, medarbejdere, og selvfølgelig også for dig som frivillig. Udover at være del af et stærkt fællesskab, får du en gratis billet til en af festival-dagene for hver vagt, du tager. Du får også en t-shirt, en drikkedunk og selvfølgelig forplejning under vagten.
           </p>
