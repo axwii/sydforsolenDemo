@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Marquee from "react-fast-marquee";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import SplitType from "split-type";
 
 // Sample image data
 const row1Images = [
@@ -34,6 +35,9 @@ export default function HorizontalScroll() {
   const mainContainerRef = useRef<HTMLDivElement>(null);
   const filmRollRef = useRef<HTMLDivElement>(null);
   const horizontalRef = useRef<HTMLDivElement>(null);
+  const firstSectionRef = useRef<HTMLDivElement>(null);
+  const secondSectionRef = useRef<HTMLDivElement>(null);
+  const thirdSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -43,6 +47,7 @@ export default function HorizontalScroll() {
 
     gsap.set(horizontalSection, { x: window.innerWidth });
 
+    // Main horizontal scroll timeline
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: mainContainer,
@@ -63,13 +68,90 @@ export default function HorizontalScroll() {
         x: -(window.innerWidth * 2),
       });
 
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+    // First section fade in
+    if (firstSectionRef.current) {
+      const mainText = firstSectionRef.current.querySelector(".main-text");
+      const bottomText = firstSectionRef.current.querySelector(".bottom-text");
+
+      if (mainText && bottomText) {
+        gsap.set([mainText, bottomText], { opacity: 0 });
+
+        ScrollTrigger.create({
+          trigger: mainContainer,
+          start: "top top",
+          end: "+=1000",
+          onEnter: () => {
+            gsap.to([mainText, bottomText], {
+              opacity: 1,
+              duration: 1,
+              stagger: 0.3,
+              ease: "power2.out",
+            });
+          },
+          once: true,
+        });
+      }
+    }
+
+    // Second section fade in
+    if (secondSectionRef.current) {
+      const mainText = secondSectionRef.current.querySelector(".main-text");
+      const bottomText = secondSectionRef.current.querySelector(".bottom-text");
+
+      if (mainText && bottomText) {
+        gsap.set([mainText, bottomText], { opacity: 0 });
+
+        ScrollTrigger.create({
+          trigger: mainContainer,
+          start: "top top",
+          end: "+=2000",
+          onEnter: () => {
+            gsap.to([mainText, bottomText], {
+              opacity: 1,
+              duration: 1,
+              stagger: 0.3,
+              ease: "power2.out",
+            });
+          },
+          once: true,
+        });
+      }
+    }
+
+    // Third section fade in
+    if (thirdSectionRef.current) {
+      const mainText = thirdSectionRef.current.querySelector(".main-text");
+      const bottomText = thirdSectionRef.current.querySelector(".bottom-text");
+
+      if (mainText && bottomText) {
+        gsap.set([mainText, bottomText], { opacity: 0 });
+
+        ScrollTrigger.create({
+          trigger: mainContainer,
+          start: "top top",
+          end: "+=3000",
+          onEnter: () => {
+            gsap.to([mainText, bottomText], {
+              opacity: 1,
+              duration: 1,
+              stagger: 0.3,
+              ease: "power2.out",
+            });
+          },
+          once: true,
+        });
+      }
+    }
+
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
   }, []);
 
   return (
     <div ref={mainContainerRef} className="relative h-screen min-h-[600px] overflow-hidden">
       {/* Film roll section */}
-      <div ref={filmRollRef} className="absolute top-0 left-0 h-full w-full z-10 bg-black">
+      <div ref={filmRollRef} className="absolute top-0 pt-4 left-0 h-full w-full z-10 bg-black">
         <div className="gap-4 grid grid-rows-3">
           <Marquee speed={10} direction="right" className="h-full flex items-center">
             <div className="flex gap-4 pr-4">
@@ -98,33 +180,33 @@ export default function HorizontalScroll() {
       {/* Horizontal scroll section */}
       <div ref={horizontalRef} className="absolute top-0 left-0 h-full z-20 flex">
         {/* First section */}
-        <div className="w-screen h-screen flex-shrink-0 flex items-center justify-center relative" style={{ backgroundImage: 'url("/images/JoakimZuger_Sydforsolen2024_Loerdag-4-2048x1365.webp")', backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
+        <div ref={firstSectionRef} className="w-screen h-screen flex-shrink-0 flex items-center justify-center relative" style={{ backgroundImage: 'url("/images/JoakimZuger_Sydforsolen2024_Loerdag-4-2048x1365.webp")', backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
           <div className="absolute inset-0 bg-black/40"></div>
           <div className="relative flex flex-col md:flex-row w-full h-full pt-14 px-8 z-[2]">
-            <div className="font-exposure font-extrabold text-[clamp(1.5rem,4vw,2.8rem)] text-white max-w-full md:max-w-[65vw]">Velkommen til Syd For Solen.</div>
-            <div className="absolute bottom-8 font-extrabold right-8 text-[clamp(1.5rem,4vw,2.8rem)] font-exposure text-white">
+            <div className="main-text font-exposure font-extrabold text-[clamp(1.5rem,4vw,2.8rem)] text-white max-w-full md:max-w-[65vw]">Velkommen til Syd For Solen.</div>
+            <div className="bottom-text absolute bottom-8 font-extrabold right-8 text-[clamp(1.5rem,4vw,2.8rem)] font-exposure text-white">
               Vi elsker København. <br></br> Vi elsker musikken.
             </div>
           </div>
         </div>
 
         {/* Second section */}
-        <div className="w-screen h-screen flex-shrink-0 flex items-center justify-center relative" style={{ backgroundImage: 'url("/images/JoakimZuger_Sydforsolen2024_Fredag-60-scaled.webp")', backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
+        <div ref={secondSectionRef} className="w-screen h-screen flex-shrink-0 flex items-center justify-center relative" style={{ backgroundImage: 'url("/images/JoakimZuger_Sydforsolen2024_Fredag-60-scaled.webp")', backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
           <div className="absolute inset-0 bg-black/40"></div>
           <div className="relative flex flex-col md:flex-row w-full h-full z-[2] pt-14 px-8">
-            <div className="font-exposure text-[clamp(1.5rem,4vw,2.8rem)] text-white font-bold max-w-full md:max-w-[65vw] text-left">Syd For Solen er København, når den er allermest levende.</div>
-            <div className="absolute bottom-8 md:max-w-[65vw] font-extrabold text-[clamp(1.5rem,4vw,2.8rem)] font-exposure text-white">
+            <div className="main-text font-exposure text-[clamp(1.5rem,4vw,2.8rem)] text-white font-bold max-w-full md:max-w-[65vw] text-left">Syd For Solen er København, når den er allermest levende.</div>
+            <div className="bottom-text absolute bottom-8 right-8 font-extrabold text-[clamp(1.5rem,4vw,2.8rem)] font-exposure text-white">
               Det bliver stort, det bliver smukt, <br></br> og vi glæder os til at slutte sommeren med dig.
             </div>
           </div>
         </div>
 
         {/* Third section */}
-        <div className="w-screen h-screen flex-shrink-0 flex items-center justify-center relative" style={{ backgroundImage: 'url("/images/1640-Syd-for-Solen-2023-Photo-Morten-Rygaard-All-Copyrights_MRP6708-1-scaled.webp")', backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
+        <div ref={thirdSectionRef} className="w-screen h-screen flex-shrink-0 flex items-center justify-center relative" style={{ backgroundImage: 'url("/images/1640-Syd-for-Solen-2023-Photo-Morten-Rygaard-All-Copyrights_MRP6708-1-scaled.webp")', backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
           <div className="absolute inset-0 bg-black/40"></div>
           <div className="relative flex flex-col md:flex-row w-full h-full z-[2] pt-14 px-8">
-            <div className="font-exposure text-[clamp(1.5rem,4vw,2.8rem)] text-white font-bold max-w-full md:max-w-[65vw] text-left">Syd For Solen er mere end musik. Det er et fællesskab – og vores partnere er en uundværlig del af den fortælling.</div>
-            <div className="absolute bottom-8 font-extrabold right-8 text-[clamp(1.5rem,4vw,2.8rem)] md:max-w-[65vw] font-exposure text-white">Det er ikke bare et logo på et banner. Det er en hånd i ryggen. Et fælles løfte om at gøre noget smukt for København.</div>
+            <div className="main-text font-exposure text-[clamp(1.5rem,4vw,2.8rem)] text-white font-bold max-w-full md:max-w-[65vw] text-left">Syd For Solen er mere end musik. Det er et fællesskab – og vores partnere er en uundværlig del af den fortælling.</div>
+            <div className="bottom-text absolute bottom-8 font-extrabold right-8 text-[clamp(1.5rem,4vw,2.8rem)] md:max-w-[65vw] font-exposure text-white">Det er ikke bare et logo på et banner. Det er en hånd i ryggen. Et fælles løfte om at gøre noget smukt for København.</div>
           </div>
         </div>
       </div>
