@@ -1,7 +1,7 @@
 
 'use client';
 
-import type { FaqCategoryData } from '../../lib/faqData';
+import type { FaqCategoryData } from '../../../lib/faqData';
 import FaqItem from './FaqItem';
 
 interface FaqCategoryProps {

@@ -1,7 +1,7 @@
-import FaqCategory from '../components/FaqCategory';
+import FaqCategory from '../components/ui/FaqCategory';
 import { faqData } from '../../lib/faqData';
 import Image from 'next/image';
-import PageTitle from '../components/PageTitle';
+import PageTitle from '../components/ui/PageTitle';
 
 export default function FrivilligPage() {
   const frivilligFaq = faqData.find(category => category.id === 'praktisk-frivillig');

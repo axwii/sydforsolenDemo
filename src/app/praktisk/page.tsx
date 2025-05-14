@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { faqData } from '../../lib/faqData';
-import FaqCategory from '../components/FaqCategory';
+import FaqCategory from '../components/ui/FaqCategory';
 import FilterButtons from '../components/FilterButtons';
-import PageTitle from '../components/PageTitle';
+import PageTitle from '../components/ui/PageTitle';
 
 export default function PraktiskPage() {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);

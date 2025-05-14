@@ -1,7 +1,7 @@
 'use client';
 
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import type { FaqItemData } from '../../lib/faqData';
+import type { FaqItemData } from '../../../lib/faqData';
 
 interface FaqItemProps {
   item: FaqItemData;

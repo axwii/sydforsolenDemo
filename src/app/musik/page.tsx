@@ -9,7 +9,7 @@ import ArtistPopup from '../components/artist/ArtistPopup';
 import DayProgramSection from '../components/DayProgramSection';
 import type { Artist, DayData } from '../../lib/musicData';
 import { musicProgram as initialMusicProgram } from '../../lib/musicData';
-import PageTitle from '../components/PageTitle';
+import PageTitle from '../components/ui/PageTitle';
 
 export default function Music() {
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);

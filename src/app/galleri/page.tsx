@@ -4,7 +4,7 @@ import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import GalleryImageSection from "../components/GalleryImageSection";
-import PageTitle from "../components/PageTitle"; // Added import
+import PageTitle from "../components/ui/PageTitle"; // Added import
 
 gsap.registerPlugin(ScrollTrigger);
 
