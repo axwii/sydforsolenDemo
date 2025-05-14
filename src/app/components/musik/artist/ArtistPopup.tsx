@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { XIcon } from 'lucide-react';
 import { useEffect } from 'react'; // Import useEffect
-import type { Artist } from '../../../lib/musicData'; // Updated import path
+import type { Artist } from '../../../../lib/musicData'; // Updated import path
 
 interface ArtistPopupProps {
   artist: Artist | null;

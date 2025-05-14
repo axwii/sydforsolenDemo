@@ -1,6 +1,6 @@
 "use client";
 
-import type { DayData, Artist } from '../../lib/musicData'; // Updated import path
+import type { DayData, Artist } from '../../../lib/musicData'; // Updated import path
 import ArtistCarousel from './artist/ArtistCarousel';
 
 interface DayProgramSectionProps {

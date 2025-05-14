@@ -1,6 +1,6 @@
 'use client';
 
-import type { FaqCategoryData } from '../../lib/faqData';
+import type { FaqCategoryData } from '../../../lib/faqData';
 
 interface FilterButtonsProps {
   categories: FaqCategoryData[];
