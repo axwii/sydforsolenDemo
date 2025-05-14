@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import FaqCategory from '../components/FaqCategory';
 import { faqData } from '../../lib/faqData';
 import Image from 'next/image';
@@ -50,8 +49,11 @@ export default function FrivilligPage() {
           )}
         </section>
       </div>
-=======
-import FrivilligFAQ from "../components/FrivilligFAQ"
+    </div>
+  );
+}
+
+{/* import FrivilligFAQ from "../components/FrivilligFAQ"
 import { Accordion } from "../components/ui/accordion"
 
 export default function Frivillig() {
@@ -75,11 +77,10 @@ export default function Frivillig() {
         <img src="/images/image10.png" alt="Frivillig" className="w-full" />
       </div>
       <FrivilligFAQ />
->>>>>>> feature/frivilllig
     </div>
   );
 }
 
-
+ */}
 
 
