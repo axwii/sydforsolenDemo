@@ -2,6 +2,7 @@
 
 import Marquee from "react-fast-marquee";
 import { ImageData } from "./types";
+import TextParallax from "./text-parallax";
 
 interface FilmRollProps {
   row1Images: ImageData[];
@@ -11,8 +12,8 @@ interface FilmRollProps {
 
 export default function FilmRoll({ row1Images, row2Images, row3Images }: FilmRollProps) {
   return (
-    <div className="absolute top-0 pt-4 left-0 h-full w-full z-10 bg-black">
-      <div className="gap-4 grid grid-rows-3">
+    <div className="relative w-full">
+            <div className="gap-4 grid grid-rows-3">
         <Marquee speed={20} direction="right" className="h-full flex items-center">
           <div className="flex gap-4 pr-4">
             {row1Images.map((img) => (
