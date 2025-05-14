@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import ArtistPopup from '../components/ArtistPopup';
+import ArtistPopup from '../components/artist/ArtistPopup';
 import DayProgramSection from '../components/DayProgramSection';
 import type { Artist, DayData } from '../../lib/musicData';
 import { musicProgram as initialMusicProgram } from '../../lib/musicData';

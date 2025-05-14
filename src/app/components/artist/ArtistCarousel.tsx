@@ -6,7 +6,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination } from 'swiper/modules';
-import type { Artist, DayData } from '../../lib/musicData'; // Updated import path
+import type { Artist, DayData } from '../../../lib/musicData'; // Updated import path
 
 interface ArtistCarouselProps {
   dayData: DayData;
