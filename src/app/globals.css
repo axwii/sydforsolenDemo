@@ -9,8 +9,6 @@
   src: url("/fonts/Exposure.ttf") format("truetype");
 }
 
-
-
 @font-face {
   font-family: "helvetica-bold";
   src: url("/fonts/HelveticaNeue-Bold.otf") format("opentype");
@@ -105,26 +103,26 @@
 .music-section-thursday .swiper-button-next,
 .music-section-thursday .swiper-button-prev,
 .music-section-thursday .swiper-pagination-bullet {
-  color: #FFCDE8; /* White */
+  color: #ffcde8; /* White */
 }
 .music-section-thursday .swiper-pagination-bullet-active {
-  background: #FFCDE8; /* White */
+  background: #ffcde8; /* White */
 }
 
 .music-section-friday .swiper-button-next,
 .music-section-friday .swiper-button-prev,
 .music-section-friday .swiper-pagination-bullet {
-  color: #CC4624; /* Orange */
+  color: #cc4624; /* Orange */
 }
 .music-section-friday .swiper-pagination-bullet-active {
-  background: #CC4624; /* Orange */
+  background: #cc4624; /* Orange */
 }
 
 .music-section-saturday .swiper-button-next,
 .music-section-saturday .swiper-button-prev,
 .music-section-saturday .swiper-pagination-bullet {
-  color: #0074C9; /* Blue */
+  color: #0074c9; /* Blue */
 }
 .music-section-saturday .swiper-pagination-bullet-active {
-  background: #0074C9; /* Blue */
+  background: #0074c9; /* Blue */
 }
