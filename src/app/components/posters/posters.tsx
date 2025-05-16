@@ -10,7 +10,7 @@ export default function Posters() {
           <img src={poster.src} alt={poster.alt} className="w-full h-full object-cover transition-all duration-300" />
           <div className="absolute inset-0 bg-black/85 opacity-0 hover:opacity-100 transition-opacity duration-500">
             <div className="absolute top-1/2 left-1/2  -translate-x-1/2 -translate-y-1/2">
-              <InteractiveHoverButton>SE PROGRAM</InteractiveHoverButton>
+              <InteractiveHoverButton variant="light">SE PROGRAM</InteractiveHoverButton>
             </div>
           </div>
         </Link>
