@@ -35,7 +35,7 @@ export const EarlierYearAccordion = memo(function EarlierYearAccordion({ year, t
     <AccordionItem value={year} className="bg-[#D9D9D9] px-6">
       <AccordionTrigger className="font-exposure font-bold text-[1.5rem]">SYD FOR SOLEN {year}</AccordionTrigger>
       <AccordionContent>
-        <div className="grid grid-cols-3 gap-8 p-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-4">
           <ArtistList {...thursday} />
           <ArtistList {...friday} />
           <ArtistList {...saturday} />
