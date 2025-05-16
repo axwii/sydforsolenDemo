@@ -11,7 +11,7 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
     { name: "MUSIK", href: "/musik" },
     { name: "PARTNERE", href: "/partnere" },
     { name: "FRIVILLIG", href: "/frivillig" },
-    { name: "GALLERI", href: "/galleri" },
+    { name: "PRAKTISK", href: "/praktisk" },
   ];
 
   // Calculate the gaps for the lines (based on circle size of 200px)
