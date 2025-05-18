@@ -32,7 +32,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <SmoothScroll />
-        <div className={show}>
+        <div className={isHomePage ? show : "block"}>
           <Header />
         </div>
         <div className={hidden}>{isHomePage && <Navigation />}</div>

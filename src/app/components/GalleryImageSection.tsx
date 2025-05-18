@@ -47,9 +47,9 @@ export default function GalleryImageSection({
                         if (el) imagesRef.current[i] = el;
                     }}
                     className={`absolute ${
-                        i === 0 ? 'h-[60vh] w-[50vh] z-[1]' :
-                        i === 1 ? 'left-[55vw] top-[15vh] h-[40vh] w-[30vh] z-[2]' :
-                        'left-[27.5vw] top-[40vh] h-[25vh] w-[20vh] z-[3]'
+                        i === 0 ? 'h-[35vh] w-[30vh] md:h-[45vh] md:w-[40vh] lg:h-[60vh] lg:w-[50vh] z-[1]' :
+                        i === 1 ? 'left-[65vw] top-[10vh] md:left-[58vw] md:top-[15vh] lg:left-[60vw] lg:top-[15vh] h-[20vh] w-[15vh] md:h-[30vh] md:w-[25vh] lg:h-[40vh] lg:w-[30vh] z-[2]' :
+                        'left-[10vw] top-[30vh] md:left-[25vw] md:top-[37vh] lg:left-[27.5vw] lg:top-[40vh] h-[19vh] w-[15vh] md:h-[20vh] md:w-[15vh] lg:h-[25vh] lg:w-[20vh] z-[3]'
                     }`}
                 >
                     <Image 
