@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { faqData } from '../../lib/faqData';
 import FaqCategory from '../components/ui/FaqCategory';
-import FilterButtons from '../components/FilterButtons';
+import FilterButtons from '../components/ui/FilterButtons';
 import PageTitle from '../components/ui/PageTitle';
 
 export default function PraktiskPage() {
@@ -19,7 +19,7 @@ export default function PraktiskPage() {
 
   return (
     <div>
-      <PageTitle title="Praktisk Information" />
+      <PageTitle title="Praktisk Information" baseFontSize={75} />
       <div className="container mx-auto px-4 py-16 md:py-24">
         {/* <h1 className="text-4xl md:text-6xl font-bold mb-12 md:mb-16 font-exposure text-center md:text-left">
           PRAKTISK INFORMATION
