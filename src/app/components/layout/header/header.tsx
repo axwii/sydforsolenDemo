@@ -9,7 +9,7 @@ export default function Header() {
 
   return (
     <>
-      <div className="w-full fixed top-0 left-0 z-50 block bg-grey">
+      <div className="w-full top-0 left-0 z-50 block bg-grey">
         <div className="container mx-auto h-full flex items-center justify-between px-5">
           <Link href="/">
             <Image 
