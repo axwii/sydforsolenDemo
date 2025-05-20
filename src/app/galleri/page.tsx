@@ -59,10 +59,8 @@ export default function ParallaxScroll() {
 
     return (
         <section className="min-h-screen bg-gradient-to-br from-gray-800 via-white to-gray-800">
-            <PageTitle title="Galleri" /> {/* Added PageTitle component */}
+            <PageTitle title="Galleri" baseFontSize={170} />
             <div className="min-h-screen py-20">
-
-
 
             <div>
                 {imageSets.map((images, index) => (

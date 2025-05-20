@@ -12,31 +12,33 @@ const partners = [
 
 export default function Partners() {
   return (
-    <div className="container mx-auto px-4 py-16 md:py-24">
-      <PageTitle title="Partnere" /> {/* Added PageTitle component */}
-      <h1 className="text-4xl md:text-6xl font-bold mb-12 md:mb-16 font-exposure">
-        Vi samarbejder med dem, der gør en forskel
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-        {partners.map((partner) => (
-          <div key={partner.id} className="flex flex-col items-center md:items-start ">
-            <div className="w-full aspect-square bg-neutral-200 mb-4 flex items-center justify-center">
-              {/* Placeholder for logo */}
-              <span className="text-neutral-500">LOGO</span>
-              {/* 
-                // When actual logos are available, replace the span above with:
-                // <Image
-                //   src={partner.logo} // Make sure partner.logo points to the correct path
-                //   alt={`${partner.name} logo`}
-                //   width={200} // Adjust width as needed
-                //   height={200} // Adjust height as needed
-                //   className="object-contain w-3/4 h-3/4" // Adjust styling as needed
-                // /> 
-              */}
+    <div>
+      <PageTitle title="Partnere" baseFontSize={140} />
+      <div className="container mx-auto px-4 py-16 md:py-24">
+        <h1 className="text-4xl md:text-6xl font-bold mb-12 md:mb-16 font-exposure">
+          Vi samarbejder med dem, der gør en forskel
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          {partners.map((partner) => (
+            <div key={partner.id} className="flex flex-col items-center md:items-start ">
+              <div className="w-full aspect-square bg-neutral-200 mb-4 flex items-center justify-center">
+                {/* Placeholder for logo */}
+                <span className="text-neutral-500">LOGO</span>
+                {/* 
+                  // When actual logos are available, replace the span above with:
+                  // <Image
+                  //   src={partner.logo} // Make sure partner.logo points to the correct path
+                  //   alt={`${partner.name} logo`}
+                  //   width={200} // Adjust width as needed
+                  //   height={200} // Adjust height as needed
+                  //   className="object-contain w-3/4 h-3/4" // Adjust styling as needed
+                  // /> 
+                */}
+              </div>
+              <p className="text-sm text-neutral-600 mt-2">{partner.description}</p> 
             </div>
-            <p className="text-sm text-neutral-600 mt-2">{partner.description}</p> 
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

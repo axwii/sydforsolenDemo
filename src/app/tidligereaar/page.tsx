@@ -37,8 +37,8 @@ export default function TidligereAar() {
   if (loading) {
     return (
       <main className="md:min-h-screen">
+        <PageTitle title="Tidligere År" baseFontSize={100} />
         <div className="container mx-auto px-4 py-8">
-          <PageTitle title="Tidligere År" />
           <div className="mt-8">Loading...</div>
         </div>
       </main>
