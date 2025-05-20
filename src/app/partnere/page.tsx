@@ -13,7 +13,7 @@ const partners = [
 export default function Partners() {
   return (
     <div>
-      <PageTitle title="Partnere" baseFontSize={130} />
+      <PageTitle title="Partnere" baseFontSize={140} />
       <div className="container mx-auto px-4 py-16 md:py-24">
         <h1 className="text-4xl md:text-6xl font-bold mb-12 md:mb-16 font-exposure">
           Vi samarbejder med dem, der gør en forskel

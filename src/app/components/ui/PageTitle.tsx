@@ -9,7 +9,7 @@ interface PageTitleProps {
 export default function PageTitle({ title, baseFontSize = 100 }: PageTitleProps) {
   return (
     <div>
-      <div className="container mx-auto px-4 py-16 md:py-24">
+      <div className="container mx-auto px-4 pt-8 md:pt-12">
       <svg
         viewBox="0 0 1000 140"
         preserveAspectRatio="xMinYMid meet"
