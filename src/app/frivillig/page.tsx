@@ -20,7 +20,7 @@ export default async function FrivilligPage() {
         <section className="mb-12">
           <h1 className="text-4xl font-bold mb-4 font-exposure">Bliv frivillig på Syd For Solen</h1>
           <p className="mb-6 text-lg max-w-2xl ">Vi glæder os til - sammen med dig – at skabe en helt fantastisk festival i Valbyparken, for såvel publikum, artister, medarbejdere, og selvfølgelig også for dig som frivillig. Udover at være del af et stærkt fællesskab, får du en gratis billet til en af festival-dagene for hver vagt, du tager. Du får også en t-shirt, en drikkedunk og selvfølgelig forplejning under vagten.</p>
-          <div className="space-x-4">
+          <div className="flex-wrap flex gap-2">
             <InteractiveHoverButton variant="dark">TILMELD DIG SOM FRIVILLIG</InteractiveHoverButton>
             <InteractiveHoverButton variant="dark">PRAKTISK OM AT VÆRE FRIVILLIG</InteractiveHoverButton>
           </div>

@@ -5,7 +5,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import ZoomParallax from "./zoomparallax";
 import ScrollSection from "./ScrollSection";
-import { row1Images, row2Images, row3Images, sections } from "./data";
+import { sections } from "./data";
 
 export default function HorizontalScroll() {
   const mainContainerRef = useRef<HTMLDivElement>(null);

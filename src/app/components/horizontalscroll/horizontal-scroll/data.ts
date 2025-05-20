@@ -8,22 +8,6 @@ export const row1Images: ImageData[] = [
   { id: 5, src: "/images/JoakimZuger_Sydforsolen2024_Loerdag-4-2048x1365.webp", alt: "Image 5" },
 ];
 
-export const row2Images: ImageData[] = [
-  { id: 6, src: "/images/Jonathan_Damslund_Atmosphere_Saturday0039-scaled.webp", alt: "Image 6" },
-  { id: 7, src: "/images/JoakimZuger_Sydforsolen2024_Loerdag-4-2048x1365.webp", alt: "Image 7" },
-  { id: 8, src: "/images/@karlstenstroem_Syd-For-Solen_Stemningsfotos-1-scaled.webp", alt: "Image 8" },
-  { id: 9, src: "/images/2_Slowdive_Mathias-Bak-Larsen©-12-scaled-e1697733326397.webp", alt: "Image 9" },
-  { id: 10, src: "/images/1640-Syd-for-Solen-2023-Photo-Morten-Rygaard-All-Copyrights_MRP6708-1-scaled.webp", alt: "Image 10" },
-];
-
-export const row3Images: ImageData[] = [
-  { id: 11, src: "/images/1640-Syd-for-Solen-2023-Photo-Morten-Rygaard-All-Copyrights_MRP6708-1-scaled.webp", alt: "Image 11" },
-  { id: 12, src: "/images/@karlstenstroem_Syd-For-Solen_Stemningsfotos-1-scaled.webp", alt: "Image 12" },
-  { id: 13, src: "/images/Jonathan_Damslund_Atmosphere_Saturday0039-scaled.webp", alt: "Image 13" },
-  { id: 14, src: "/images/JoakimZuger_Sydforsolen2024_Loerdag-4-2048x1365.webp", alt: "Image 14" },
-  { id: 15, src: "/images/2_Slowdive_Mathias-Bak-Larsen©-12-scaled-e1697733326397.webp", alt: "Image 15" },
-];
-
 export const sections = [
   {
     backgroundImage: "/images/JoakimZuger_Sydforsolen2024_Loerdag-4-2048x1365.webp",
