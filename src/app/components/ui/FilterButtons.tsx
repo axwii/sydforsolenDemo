@@ -28,7 +28,9 @@ export default function FilterButtons({ categories, activeFilter, onFilterChange
       >
         VIS ALLE
       </button>
-      {categories.map((category) => (
+      {categories
+      .filter(category => category.id !== "praktisk-frivillig")
+      .map((category) => (
         <button
           key={category.id}
           onClick={() => onFilterChange(category.id)}

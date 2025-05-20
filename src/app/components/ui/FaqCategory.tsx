@@ -16,7 +16,9 @@ export default function FaqCategory({ category }: FaqCategoryProps) {
     <div className="mb-8">
       <h2 className="text-2xl font-bold mb-4 font-exposure">{category.title}</h2>
       <div>
-        {category.faq_questions?.map((item) => (
+        {category.faq_questions
+        .filter(item => item.category_id !== "praktisk-frivillig")
+        .map((item) => (
           <FaqItem 
             key={item.id} 
             item={{

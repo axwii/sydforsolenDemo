@@ -54,7 +54,9 @@ export default function PraktiskPage() {
             <FilterButtons categories={categories} activeFilter={activeFilter} onFilterChange={handleFilterChange} />
           </div>
           <div className="md:w-3/4">
-            {filteredData.map((category) => (
+            {filteredData
+            .filter(category => category.id !== "praktisk-frivillig")
+            .map((category) => (
               <FaqCategory key={category.id} category={category} />
             ))}
           </div>
