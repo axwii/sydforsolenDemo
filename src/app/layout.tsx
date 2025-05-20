@@ -25,21 +25,17 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
-  const hidden = "md:block hidden"
-  const show = "md:hidden block"
+  const hidden = "md:block hidden";
+  const show = "md:hidden block";
 
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <SmoothScroll />
-        <div className={show}>
+        <div className={isHomePage ? show : "block"}>
           <Header />
         </div>
-        <div className={hidden}>
-        {isHomePage && <Navigation /> }
-        </div>
+        <div className={hidden}>{isHomePage && <Navigation />}</div>
         {children}
         <Footer />
       </body>

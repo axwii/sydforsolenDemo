@@ -126,3 +126,38 @@
 .music-section-saturday .swiper-pagination-bullet-active {
   background: #0074c9; /* Blue */
 }
+
+h1 {
+  font-family: "EXPOSURE";
+  font-size: 9.375rem;
+}
+
+h2 {
+  font-family: "EXPOSURE";
+  font-size: 8.125rem;
+}
+
+h3 {
+  font-family: "EXPOSURE";
+  font-size: 5rem;
+}
+
+h4 {
+  font-family: "EXPOSURE";
+  font-size: 3.125rem;
+}
+
+h5 {
+  font-family: "EXPOSURE";
+  font-size: 2.188rem;
+}
+
+h6 {
+  font-family: "EXPOSURE";
+  font-size: 1.25rem;
+}
+
+p {
+  font-family: Helvetica, sans-serif;
+  font-size: 1.5rem;
+}

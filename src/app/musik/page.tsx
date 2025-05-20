@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-  import ArtistPopup from '../components/musik/artist/ArtistPopup';
-  import DayProgramSection from '../components/musik/DayProgramSection';
-import type { Artist, DayData } from '../../lib/musicData';
-import { musicProgram as initialMusicProgram } from '../../lib/musicData';
-import PageTitle from '../components/ui/PageTitle';
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import ArtistPopup from "../components/musik/artist/ArtistPopup";
+import DayProgramSection from "../components/musik/DayProgramSection";
+import type { Artist, DayData } from "../../lib/musicData";
+import { musicProgram as initialMusicProgram } from "../../lib/musicData";
+import PageTitle from "../components/ui/PageTitle";
 
 export default function Music() {
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
@@ -43,16 +43,12 @@ export default function Music() {
       {programData.map((dayData: DayData) => (
         <DayProgramSection key={dayData.day} dayData={dayData} onArtistClick={openPopup} />
       ))}
-      {selectedArtist && (
-        <ArtistPopup
-          artist={selectedArtist}
-          onClose={closePopup}
-          bgColor={programData.find(day => day.artists.some(art => art.id === selectedArtist.id))?.bgColor || "bg-gray-500"}
-          textColor={programData.find(day => day.artists.some(art => art.id === selectedArtist.id))?.textColor || "text-white"}
-        />
-      )}
+      {selectedArtist && <ArtistPopup artist={selectedArtist} onClose={closePopup} bgColor={programData.find((day) => day.artists.some((art) => art.id === selectedArtist.id))?.bgColor || "bg-gray-500"} textColor={programData.find((day) => day.artists.some((art) => art.id === selectedArtist.id))?.textColor || "text-white"} />}
+      <div className="w-full h-[66px] bg-[#D9D9D9] border border-black border-b-0 flex items-center justify-center">
+        <a href="/tidligereaar" className="font-['Helvetica_Neue'] font-bold text-center">
+          SE TIDLIGERE ÅRS PROGRAM
+        </a>
+      </div>
     </div>
   );
 }
-
-

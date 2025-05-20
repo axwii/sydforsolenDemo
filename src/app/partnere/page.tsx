@@ -1,4 +1,3 @@
-import Image from "next/image";
 import PageTitle from "../components/ui/PageTitle"; // Added import
 
 // Placeholder data for partners - replace with actual data later

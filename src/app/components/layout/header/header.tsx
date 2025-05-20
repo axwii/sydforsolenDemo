@@ -9,8 +9,8 @@ export default function Header() {
 
   return (
     <>
-      <div className="w-full h-[100px] bg-transparent fixed top-0 left-0 z-50">
-        <div className="container mx-auto h-full flex items-center justify-between px-2">
+      <div className="w-full top-0 left-0 z-50 block bg-grey">
+        <div className="container mx-auto h-full flex items-center justify-between px-5">
           <Link href="/">
             <Image 
               src="/images/sydforsolenlogo.svg" 
