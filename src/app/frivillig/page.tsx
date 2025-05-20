@@ -1,11 +1,16 @@
 import FaqCategory from "../components/ui/FaqCategory";
-import { faqData } from "../../lib/faqData";
+import { getCategoriesWithQuestions } from "@/lib/lib";
 import Image from "next/image";
 import PageTitle from "../components/ui/PageTitle";
 import { InteractiveHoverButton } from "../components/ui/interactive-hover-button";
 
-export default function FrivilligPage() {
-  const frivilligFaq = faqData.find((category) => category.id === "praktisk-frivillig");
+export default async function FrivilligPage() {
+  const { data: categories, error } = await getCategoriesWithQuestions();
+
+  if (error) {
+    console.error('Error fetching FAQ categories:', error);
+    return <div>Error loading FAQs</div>;
+  }
 
   return (
     <div>
@@ -32,11 +37,11 @@ export default function FrivilligPage() {
       {/* Section 3: FAQ - with container */}
       <div className="container mx-auto px-4 py-8">
         <section>
-          {frivilligFaq ? (
-            <FaqCategory category={frivilligFaq} /> // This renders "Praktisk om at være frivillig" as H2
-          ) : (
-            <p>Information om at være frivillig kommer snart.</p>
-          )}
+          {categories
+            .filter(category => category.id === "praktisk-frivillig")
+            .map((category) => (
+            <FaqCategory key={category.id} category={category} />
+          ))}
         </section>
       </div>
     </div>

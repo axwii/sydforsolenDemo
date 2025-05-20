@@ -1,9 +1,13 @@
 'use client';
 
-import type { FaqCategoryData } from '../../../lib/faqData';
+import { Tables } from '@/types/supabase';
+
+type FaqCategory = Tables<'faq_categories'> & {
+  faq_questions: Tables<'faq_questions'>[];
+};
 
 interface FilterButtonsProps {
-  categories: FaqCategoryData[];
+  categories: FaqCategory[];
   activeFilter: string | null;
   onFilterChange: (filter: string | null) => void;
 }
