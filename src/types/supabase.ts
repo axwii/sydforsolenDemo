@@ -16,7 +16,6 @@ export type Database = {
           description1: string
           description2: string
           description3: string
-          dillerdaller: string | null
           id: number
           image: string
           name: string
@@ -30,7 +29,6 @@ export type Database = {
           description1: string
           description2: string
           description3: string
-          dillerdaller?: string | null
           id?: number
           image: string
           name: string
@@ -44,7 +42,6 @@ export type Database = {
           description1?: string
           description2?: string
           description3?: string
-          dillerdaller?: string | null
           id?: number
           image?: string
           name?: string
@@ -117,6 +114,59 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      festival_lineups: {
+        Row: {
+          artists: string[]
+          created_at: string
+          day_display: string
+          day_of_week: string
+          id: number
+          year_id: number | null
+        }
+        Insert: {
+          artists: string[]
+          created_at?: string
+          day_display: string
+          day_of_week: string
+          id?: number
+          year_id?: number | null
+        }
+        Update: {
+          artists?: string[]
+          created_at?: string
+          day_display?: string
+          day_of_week?: string
+          id?: number
+          year_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "festival_lineups_year_id_fkey"
+            columns: ["year_id"]
+            isOneToOne: false
+            referencedRelation: "festival_years"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      festival_years: {
+        Row: {
+          created_at: string
+          id: number
+          year: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          year: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          year?: number
+        }
+        Relationships: []
       }
       Frivillig: {
         Row: {

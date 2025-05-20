@@ -37,3 +37,19 @@ export async function getQuestionsByCategory(categoryId: string) {
     .select('*')
     .eq('category_id', categoryId);
 }
+
+export async function getFestivalLineupsByYear(year: number) {
+  const { data: yearData } = await supabase
+    .from('festival_years')
+    .select('id')
+    .eq('year', year)
+    .single();
+
+  if (!yearData) return null;
+
+  return await supabase
+    .from('festival_lineups')
+    .select('*')
+    .eq('year_id', yearData.id)
+    .order('day_display');
+}
