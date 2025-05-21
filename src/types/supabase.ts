@@ -168,18 +168,6 @@ export type Database = {
         }
         Relationships: []
       }
-      Frivillig: {
-        Row: {
-          id: number
-        }
-        Insert: {
-          id?: number
-        }
-        Update: {
-          id?: number
-        }
-        Relationships: []
-      }
       music_days: {
         Row: {
           bg_color: string
