@@ -20,6 +20,7 @@ export type Database = {
           image: string
           name: string
           secondary_image: string
+          slug: string | null
           updated_at: string
           video_embed_url: string | null
         }
@@ -33,6 +34,7 @@ export type Database = {
           image: string
           name: string
           secondary_image: string
+          slug?: string | null
           updated_at?: string
           video_embed_url?: string | null
         }
@@ -46,6 +48,7 @@ export type Database = {
           image?: string
           name?: string
           secondary_image?: string
+          slug?: string | null
           updated_at?: string
           video_embed_url?: string | null
         }
@@ -165,18 +168,6 @@ export type Database = {
           created_at?: string
           id?: number
           year?: number
-        }
-        Relationships: []
-      }
-      Frivillig: {
-        Row: {
-          id: number
-        }
-        Insert: {
-          id?: number
-        }
-        Update: {
-          id?: number
         }
         Relationships: []
       }
