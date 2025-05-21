@@ -3,8 +3,7 @@
 import { useEffect, useState } from 'react';
 import { getDataSamarbejde, getPartners } from '@/lib/lib';
 import { Tables } from '@/types/supabase';
-import PageTitle from "../components/ui/PageTitle"; // Added import
-
+import Link from 'next/link';
 type Partner = Tables<'partners'>;
 type DataSamarbejde = Tables<'data_samarbejde'>;
 
@@ -77,14 +76,14 @@ useEffect(() => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {partners.map((partner) => (
-            <div key={partner.id} className="flex flex-col items-center md:items-start ">
-              <div className="w-full aspect-square bg-neutral-200 mb-4 flex items-center justify-center">
+            <div key={partner.id} className="flex flex-col items-center md:items-start pt-10 ">
+              <Link href={partner.link || ''} className="w-full aspect-square mb-4 flex items-center justify-center hover:scale-105 transition-all duration-300">
                 <img
                   src={partner.logo}
                   alt={partner.name}
-                  className="w-full h-32 object-contain"
+                  className="w-full object-contain"
                 />
-              </div>
+              </Link>
               <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-2">{partner.name}</h2>
               <p className="text-gray-600 text-sm sm:text-base md:text-lg">{partner.description}</p>
             </div>
