@@ -62,6 +62,27 @@ export type Database = {
           },
         ]
       }
+      data_samarbejde: {
+        Row: {
+          created_at: string
+          headers: string | null
+          id: number
+          paragraph: string | null
+        }
+        Insert: {
+          created_at?: string
+          headers?: string | null
+          id?: number
+          paragraph?: string | null
+        }
+        Update: {
+          created_at?: string
+          headers?: string | null
+          id?: number
+          paragraph?: string | null
+        }
+        Relationships: []
+      }
       faq_categories: {
         Row: {
           created_at: string
@@ -200,6 +221,36 @@ export type Database = {
           id?: number
           section_class?: string
           text_color?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      partners: {
+        Row: {
+          created_at: string
+          description: string
+          id: number
+          link: string | null
+          logo: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: number
+          link?: string | null
+          logo: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: number
+          link?: string | null
+          logo?: string
+          name?: string
           updated_at?: string
         }
         Relationships: []

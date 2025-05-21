@@ -67,3 +67,17 @@ export async function getFestivalLineupsByYear(year: number) {
     .eq('year_id', yearData.id)
     .order('day_display');
 }
+
+export async function getPartners() {
+  return await supabase
+    .from('partners')
+    .select('*')
+    .order('id');
+}
+export async function getDataSamarbejde() {
+  return await supabase
+      .from('data_samarbejde')
+      .select('*')
+    .order('id');
+}
+
