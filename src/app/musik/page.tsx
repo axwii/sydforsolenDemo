@@ -39,7 +39,6 @@ export default function Music() {
 
   return (
     <div className="space-y-0 relative">
-      <PageTitle title="Musik" baseFontSize={210} />
       {programData.map((dayData: DayData) => (
         <DayProgramSection key={dayData.day} dayData={dayData} onArtistClick={openPopup} />
       ))}

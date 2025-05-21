@@ -45,7 +45,7 @@ export default function PraktiskPage() {
   return (
     <div>
       <PageTitle title="Praktisk" baseFontSize={150} />
-      <div className="container mx-auto px-4 py-16 md:py-24">
+      <div className="container mx-auto px-4 md:py-10">
         <div className="flex flex-col md:flex-row">
           <div className="w-full md:hidden mb-8">
             <FilterButtons categories={categories} activeFilter={activeFilter} onFilterChange={handleFilterChange} />

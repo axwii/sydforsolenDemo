@@ -1,5 +1,3 @@
-import { div } from "framer-motion/client";
-
 interface PageTitleProps {
   title: string;
   /** Base font size in pixels, default is 100 */

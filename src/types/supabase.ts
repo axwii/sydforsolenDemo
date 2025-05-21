@@ -20,6 +20,7 @@ export type Database = {
           image: string
           name: string
           secondary_image: string
+          slug: string | null
           updated_at: string
           video_embed_url: string | null
         }
@@ -33,6 +34,7 @@ export type Database = {
           image: string
           name: string
           secondary_image: string
+          slug?: string | null
           updated_at?: string
           video_embed_url?: string | null
         }
@@ -46,6 +48,7 @@ export type Database = {
           image?: string
           name?: string
           secondary_image?: string
+          slug?: string | null
           updated_at?: string
           video_embed_url?: string | null
         }
@@ -58,6 +61,27 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      data_samarbejde: {
+        Row: {
+          created_at: string
+          headers: string | null
+          id: number
+          paragraph: string | null
+        }
+        Insert: {
+          created_at?: string
+          headers?: string | null
+          id?: number
+          paragraph?: string | null
+        }
+        Update: {
+          created_at?: string
+          headers?: string | null
+          id?: number
+          paragraph?: string | null
+        }
+        Relationships: []
       }
       faq_categories: {
         Row: {
@@ -197,6 +221,33 @@ export type Database = {
           id?: number
           section_class?: string
           text_color?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      partners: {
+        Row: {
+          created_at: string
+          description: string
+          id: number
+          logo: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: number
+          logo: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: number
+          logo?: string
+          name?: string
           updated_at?: string
         }
         Relationships: []
