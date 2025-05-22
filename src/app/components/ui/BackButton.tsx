@@ -29,10 +29,10 @@ const BackButton: React.FC<BackButtonProps> = ({
   }
 
   return (
-    <div className={`flex ${flexAlignmentClass} ${containerClassName} relative z-10`}>
+    <div className={`flex ${flexAlignmentClass} ${containerClassName} relative z-10 `}>
       <InteractiveHoverButton
         onClick={handleClick}
-        variant="light"
+        variant="alternative"
         className={buttonClassName} // Pass through buttonClassName
       >
         {buttonText}
