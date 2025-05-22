@@ -4,14 +4,16 @@ import { Database } from '@/types/supabase';
 import { getArtistBySlug } from '@/lib/lib';
 import VideoEmbed from '@/app/components/musik/VideoEmbed'; // Import the new component
 
-type Artist = Database['public']['Tables']['artists']['Row'];
-
 export default async function ArtistPage({ params }: { params: { slug: string } }) {
-  if (!params.slug) {
+  // Address Next.js error: "params should be awaited before using its properties"
+  // by explicitly resolving params before accessing slug.
+  const resolvedParams = await Promise.resolve(params);
+
+  if (!resolvedParams.slug) {
     notFound();
   }
 
-  const { data: artist, error } = await getArtistBySlug(params.slug);
+  const { data: artist, error } = await getArtistBySlug(resolvedParams.slug);
 
   if (error || !artist) {
     console.error('Error fetching artist:', error?.message);
