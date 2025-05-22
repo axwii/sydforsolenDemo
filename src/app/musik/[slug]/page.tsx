@@ -4,6 +4,7 @@ import { getArtistBySlug } from '@/lib/lib';
 import VideoEmbed from '@/app/components/musik/VideoEmbed';
 import DynamicBackgroundSection from '@/app/components/musik/DynamicBackgroundSection'; // Import the new component
 import Container from '@/app/components/Container'; // Import the Container component
+import BackButton from '@/app/components/ui/BackButton'; // Import the BackButton component
 
 export default async function ArtistPage({ params }: { params: { slug: string } }) {
   const resolvedParams = await Promise.resolve(params);
@@ -30,6 +31,7 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
       {/* Hero Image */}
       {heroImageUrl && (
         <div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[70vh]">
+          <BackButton alignment="left" containerClassName="absolute top-4 left-4 z-20" />
           <Image
             src={heroImageUrl}
             alt={artist.name || 'Artist image'}
