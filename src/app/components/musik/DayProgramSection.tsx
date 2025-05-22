@@ -18,7 +18,7 @@ export default function DayProgramSection({ dayData, onArtistClick }: DayProgram
       <div className="container mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h2 className="text-3xl md:text-5xl font-bold font-exposure">
+            <h2 className="text-3xl md:text-5xl font-bold font-exposure mb-4">
               {dayData.day}
             </h2>
             <p className="text-sm md:text-base mt-2 max-w-xl">{dayData.description}</p>
