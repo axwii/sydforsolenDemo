@@ -35,8 +35,8 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
           <Image
             src={heroImageUrl}
             alt={artist.name || 'Artist image'}
-            layout="fill"
-            objectFit="cover"
+            fill
+            className="object-cover"
             priority
             unoptimized={heroImageUrl.startsWith('http')} 
           />
@@ -86,8 +86,8 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
                 <Image
                   src={secondaryImageUrl}
                   alt={`${artist.name || 'Artist'} - secondary image`}
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  className="object-cover"
                   unoptimized={secondaryImageUrl.startsWith('http')} 
                 />
               </div>
