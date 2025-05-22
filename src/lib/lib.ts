@@ -22,6 +22,20 @@ export async function getArtistsByDay(dayId: number) {
     .eq('day_id', dayId);
 }
 
+export async function getArtistBySlug(slug: string) {
+  return await supabase
+    .from('artists')
+    .select('*')
+    .eq('slug', slug)
+    .single();
+}
+
+export async function getAllArtists() {
+  return await supabase
+    .from('artists')
+    .select('*');
+}
+
 export async function getCategoriesWithQuestions() {
   return await supabase
     .from('faq_categories')
