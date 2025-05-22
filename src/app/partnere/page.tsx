@@ -65,10 +65,10 @@ useEffect(() => {
         <div className="py-6 gap-4 flex flex-col max-w-3xl">
           {dataSamarbejde.map((data) => (
             <div key={data.id}>
-              <h6 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
+              <h6 className="text-lg sm:text-xl lg:text-2xl font-bold mb-2">
                 {data.headers}
               </h6>
-          <p className="text-sm sm:text-base md:text-lg">
+          <p className="text-sm sm:text-base lg:text-lg">
                 {data.paragraph}
               </p>
             </div>
@@ -77,15 +77,15 @@ useEffect(() => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {partners.map((partner) => (
             <div key={partner.id} className="flex flex-col items-center md:items-start pt-10 ">
-              <Link href={partner.link || ''} className="w-full aspect-square mb-4 flex items-center justify-center hover:scale-105 transition-all duration-300">
+              <Link href={partner.link || ''} className="w-1/2 md:w-2/3 aspect-square mb-4 flex items-center mx-auto justify-center hover:scale-105 transition-all duration-300">
                 <img
                   src={partner.logo}
                   alt={partner.name}
                   className="w-full object-contain"
                 />
               </Link>
-              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-2">{partner.name}</h2>
-              <p className="text-gray-600 text-sm sm:text-base md:text-lg">{partner.description}</p>
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-2">{partner.name}</h2>
+              <p className="text-gray-600 text-sm sm:text-base lg:text-lg">{partner.description}</p>
             </div>
           ))}
         </div>
