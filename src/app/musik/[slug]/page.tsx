@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Database } from '@/types/supabase'; // Assuming @/types/supabase is correct for your project
+import { Database } from '@/types/supabase';
 import { getArtistBySlug } from '@/lib/lib';
+import VideoEmbed from '@/app/components/musik/VideoEmbed'; // Import the new component
 
 type Artist = Database['public']['Tables']['artists']['Row'];
 
@@ -52,18 +53,7 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
 
         {/* Video Embed */}
         {artist.video_embed_url && (
-          <div className="my-8 md:my-12 bg-red-600 py-10 md:py-16"> 
-            <div className="aspect-w-16 aspect-h-9 max-w-3xl mx-auto bg-gray-300"> {/* Placeholder bg for video area */}
-              <iframe
-                src={artist.video_embed_url}
-                title={`${artist.name || 'Artist'} video`}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                className="w-full h-full"
-              ></iframe>
-            </div>
-          </div>
+          <VideoEmbed videoUrl={artist.video_embed_url} artistName={artist.name || undefined} />
         )}
 
         {/* Description 2 */}
