@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; // Import useRouter
 import DayProgramSection from "../components/musik/DayProgramSection";
 import { getDaysWithArtists } from "../../lib/lib";
 import { Tables } from '@/types/supabase'; // Import Supabase table types
@@ -10,6 +11,7 @@ type Artist = Tables<'artists'>;
 type DayData = Tables<'music_days'> & { artists: Artist[] };
 
 export default function Music() {
+  const router = useRouter(); // Initialize useRouter
   const [daysWithArtists, setDaysWithArtists] = useState<DayData[]>([]);
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null); // State for selected artist
   const [loading, setLoading] = useState(true); // Loading state
@@ -41,6 +43,7 @@ export default function Music() {
     setSelectedArtist(artist);
     // You can add logic here to display artist details, e.g., open a modal or navigate
     console.log("Selected artist:", artist.name);
+    router.push(`/musik/${artist.slug}`); // Navigate to artist's slug page
   };
 
   if (loading) {
