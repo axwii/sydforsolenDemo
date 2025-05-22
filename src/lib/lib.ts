@@ -25,7 +25,13 @@ export async function getArtistsByDay(dayId: number) {
 export async function getArtistBySlug(slug: string) {
   return await supabase
     .from('artists')
-    .select('*')
+    .select(`
+      *,
+      music_days (
+        bg_color,
+        text_color
+      )
+    `)
     .eq('slug', slug)
     .single();
 }

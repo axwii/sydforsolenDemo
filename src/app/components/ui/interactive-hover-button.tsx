@@ -2,7 +2,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 interface InteractiveHoverButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "light" | "dark";
+  variant?: "light" | "dark" | "alternative";
 }
 
 export const InteractiveHoverButton = React.forwardRef<HTMLButtonElement, InteractiveHoverButtonProps>(({ children, className, variant = "light", ...props }, ref) => {
@@ -11,16 +11,19 @@ export const InteractiveHoverButton = React.forwardRef<HTMLButtonElement, Intera
   const variantStyles = {
     light: "border-white",
     dark: "border-black",
+    alternative: "border-white backdrop-brightness-75",
   };
 
   const textStyles = {
     light: "text-white group-hover:text-black",
     dark: "text-black group-hover:text-white",
+    alternative: "text-white group-hover:text-black",
   };
 
   const backgroundStyles = {
     light: "bg-white",
     dark: "bg-black",
+    alternative: "bg-white backdrop-brightness-75",
   };
 
   return (
