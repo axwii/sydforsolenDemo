@@ -19,12 +19,12 @@ export default function SmoothScroll() {
       duration: 1.75, // Added duration for smoother transitions
     });
     
-    // Optional: Log scroll events only in development
+/*     // Optional: Log scroll events only in development
     if (process.env.NODE_ENV === 'development') {
       lenisRef.current.on('scroll', (e) => {
         console.log(e);
       });
-    }
+    } */
 
     // Create a more efficient RAF function
     const raf = (time: number) => {
