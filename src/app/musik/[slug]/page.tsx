@@ -31,7 +31,7 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
       {/* Hero Image */}
       {heroImageUrl && (
         <div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[70vh]">
-          <BackButton alignment="left" containerClassName="absolute top-4 left-4 z-20" />
+          <BackButton alignment="left" containerClassName="absolute top-3 left-0 right-0 container mx-auto px-5 z-20" />
           <Image
             src={heroImageUrl}
             alt={artist.name || 'Artist image'}

@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import { InteractiveHoverButton } from './interactive-hover-button'; // Added import
 
 interface BackButtonProps {
   alignment?: 'left' | 'right';
@@ -29,12 +30,13 @@ const BackButton: React.FC<BackButtonProps> = ({
 
   return (
     <div className={`flex ${flexAlignmentClass} ${containerClassName} relative z-10`}>
-      <button
+      <InteractiveHoverButton
         onClick={handleClick}
-        className={`px-5 py-2.5 text-sm font-medium text-white bg-slate-700 rounded-lg hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800 transition-colors ${buttonClassName}`}
+        variant="light"
+        className={buttonClassName} // Pass through buttonClassName
       >
         {buttonText}
-      </button>
+      </InteractiveHoverButton>
     </div>
   );
 };
