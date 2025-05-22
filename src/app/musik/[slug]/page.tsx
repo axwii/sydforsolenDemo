@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getArtistBySlug } from '@/lib/lib';
-import VideoEmbed from '@/app/components/musik/VideoEmbed'; // Import the new component
+import VideoEmbed from '@/app/components/musik/VideoEmbed';
+import DynamicBackgroundSection from '@/app/components/musik/DynamicBackgroundSection'; // Import the new component
+import Container from '@/app/components/Container'; // Import the Container component
 
 export default async function ArtistPage({ params }: { params: { slug: string } }) {
-  // Address Next.js error: "params should be awaited before using its properties"
-  // by explicitly resolving params before accessing slug.
   const resolvedParams = await Promise.resolve(params);
 
   if (!resolvedParams.slug) {
@@ -18,6 +18,9 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
     console.error('Error fetching artist:', error?.message);
     notFound();
   }
+
+  const musicDayBgColor = artist.music_days?.bg_color || 'bg-gray-100';
+  const musicDayTextColor = artist.music_days?.text_color; // Get text color
 
   const heroImageUrl = artist.image && (artist.image.startsWith('http') || artist.image.startsWith('/')) ? artist.image : `/images/artistfolder/${artist.image}`;
   const secondaryImageUrl = artist.secondary_image && (artist.secondary_image.startsWith('http') || artist.secondary_image.startsWith('/')) ? artist.secondary_image : `/images/artistfolder/${artist.secondary_image}`;
@@ -39,45 +42,43 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
       )}
 
       {/* Content Section Wrapper */}
-      <div className="py-8 md:py-12"> {/* MODIFIED: Was container, now just for overall vertical padding */}
+      <div className="py-8 md:py-12">
 
         {/* Artist Name */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8"> {/* ADDED WRAPPER */}
+        <Container>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center my-6 md:my-10">
             {artist.name}
           </h1>
-        </div>
+        </Container>
 
         {/* Description 1 */}
         {artist.description1 && (
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8"> {/* ADDED WRAPPER */}
+          <Container>
             <p className="text-base md:text-lg leading-relaxed mb-8 max-w-3xl mx-auto text-gray-700">
               {artist.description1}
             </p>
-          </div>
+          </Container>
         )}
 
         {/* Video Embed */}
         {artist.video_embed_url && (
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8"> {/* ADDED WRAPPER */}
+          <DynamicBackgroundSection bgColor={musicDayBgColor} textColor={musicDayTextColor}>
             <VideoEmbed videoUrl={artist.video_embed_url} artistName={artist.name || undefined} />
-          </div>
+          </DynamicBackgroundSection>
         )}
 
         {/* Description 2 */}
         {artist.description2 && (
-          <div className="bg-gray-100 w-full py-8"> {/* This div is now a direct child of the py-8 md:py-12 wrapper */}
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8"> {/* ADDED INNER CONTAINER */}
-              <p className="text-base md:text-lg leading-relaxed max-w-3xl mx-auto text-gray-700"> {/* MODIFIED: Removed px-... classes */}
-                {artist.description2}
-              </p>
-            </div>
-          </div>
+          <Container>
+            <p className="text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
+              {artist.description2}
+            </p>
+          </Container>
         )}
 
         {/* Secondary Image */}
         {secondaryImageUrl && (
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8"> {/* ADDED WRAPPER */}
+          <Container>
             <div className="my-8 md:my-12 max-w-3xl mx-auto">
               <div className="relative w-full h-[40vh] md:h-[60vh] shadow-lg">
                 <Image
@@ -89,18 +90,18 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
                 />
               </div>
             </div>
-          </div>
+          </Container>
         )}
 
         {/* Description 3 */}
         {artist.description3 && (
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8"> {/* ADDED WRAPPER */}
+          <Container> {/* ADDED WRAPPER */}
             <p className="text-base md:text-lg leading-relaxed my-8 max-w-3xl mx-auto text-gray-700">
               {artist.description3}
             </p>
-          </div>
+          </Container>
         )}
-      </div> {/* End of Content Section Wrapper */}
+      </div>
     </div>
   );
 }
