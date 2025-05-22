@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { getCategoriesWithQuestions } from '@/lib/lib';
-import FaqCategory from '../components/ui/FaqCategory';
-import FilterButtons from '../components/ui/FilterButtons';
-import PageTitle from '../components/ui/PageTitle';
-import { Tables } from '@/types/supabase';
+import { useState, useEffect } from "react";
+import { getCategoriesWithQuestions } from "@/lib/lib";
+import FaqCategory from "../components/ui/FaqCategory";
+import FilterButtons from "../components/ui/FilterButtons";
+import PageTitle from "../components/ui/PageTitle";
+import { Tables } from "@/types/supabase";
 
-type FaqCategory = Tables<'faq_categories'> & {
-  faq_questions: Tables<'faq_questions'>[];
+type FaqCategory = Tables<"faq_categories"> & {
+  faq_questions: Tables<"faq_questions">[];
 };
 
 export default function PraktiskPage() {
@@ -36,9 +36,7 @@ export default function PraktiskPage() {
     setActiveFilter(filter);
   };
 
-  const filteredData = activeFilter
-    ? categories.filter((category) => category.id === activeFilter)
-    : categories;
+  const filteredData = activeFilter ? categories.filter((category) => category.id === activeFilter) : categories;
 
   if (loading) return <div>Loading...</div>;
 
@@ -55,10 +53,10 @@ export default function PraktiskPage() {
           </div>
           <div className="md:w-3/4">
             {filteredData
-            .filter(category => category.id !== "praktisk-frivillig")
-            .map((category) => (
-              <FaqCategory key={category.id} category={category} />
-            ))}
+              .filter((category) => category.id !== "praktisk-frivillig")
+              .map((category) => (
+                <FaqCategory key={category.id} category={category} />
+              ))}
           </div>
         </div>
       </div>

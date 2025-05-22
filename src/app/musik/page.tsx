@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Import useRouter
 import DayProgramSection from "../components/musik/DayProgramSection";
 import { getDaysWithArtists } from "../../lib/lib";
-import { Tables } from '@/types/supabase'; // Import Supabase table types
+import { Tables } from "@/types/supabase"; // Import Supabase table types
 
 // Define types based on your Supabase schema
-type Artist = Tables<'artists'>;
-type DayData = Tables<'music_days'> & { artists: Artist[] };
+type Artist = Tables<"artists">;
+type DayData = Tables<"music_days"> & { artists: Artist[] };
 
 export default function Music() {
   const router = useRouter(); // Initialize useRouter
@@ -57,11 +57,7 @@ export default function Music() {
   return (
     <div className="space-y-0 relative">
       {daysWithArtists.map((dayData) => (
-        <DayProgramSection 
-          key={dayData.id} 
-          dayData={dayData} 
-          onArtistClick={handleArtistClick} 
-        />
+        <DayProgramSection key={dayData.id} dayData={dayData} onArtistClick={handleArtistClick} />
       ))}
       <div className="w-full h-[66px] bg-[#D9D9D9] border border-black border-b-0 flex items-center justify-center">
         <a href="/tidligereaar" className="font-['Helvetica_Neue'] font-bold text-center">

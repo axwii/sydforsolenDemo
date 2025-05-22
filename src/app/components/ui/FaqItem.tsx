@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import { Tables } from '@/types/supabase';
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { Tables } from "@/types/supabase";
 
-type FaqQuestion = Tables<'faq_questions'>;
+type FaqQuestion = Tables<"faq_questions">;
 
 interface FaqItemProps {
   item: FaqQuestion;
@@ -19,8 +19,8 @@ export default function FaqItem({ item }: FaqItemProps): React.JSX.Element {
           <ChevronUp className="hidden group-open:block" size={20} />
         </div>
       </summary>
-      <div className="mt-2 text-gray-700">
-        <p>{item.answer}</p>
+      <div className="mt-2 text-black">
+        <p className="text-[1rem] font-helvetica-normal">{item.answer}</p>
       </div>
     </details>
   );
