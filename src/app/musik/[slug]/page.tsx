@@ -95,7 +95,7 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
 
         {/* Description 3 */}
         {artist.description3 && (
-          <Container> {/* ADDED WRAPPER */}
+          <Container>
             <p className="text-base md:text-lg leading-relaxed my-8 max-w-3xl mx-auto text-gray-700">
               {artist.description3}
             </p>
