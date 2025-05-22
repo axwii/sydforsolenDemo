@@ -9,7 +9,6 @@ import ArtistPopup from "../components/musik/artist/ArtistPopup";
 import DayProgramSection from "../components/musik/DayProgramSection";
 import type { Artist, DayData } from "../../lib/musicData";
 import { musicProgram as initialMusicProgram } from "../../lib/musicData";
-import PageTitle from "../components/ui/PageTitle";
 
 export default function Music() {
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
@@ -39,7 +38,6 @@ export default function Music() {
 
   return (
     <div className="space-y-0 relative">
-      <PageTitle title="Musik" baseFontSize={210} />
       {programData.map((dayData: DayData) => (
         <DayProgramSection key={dayData.day} dayData={dayData} onArtistClick={openPopup} />
       ))}

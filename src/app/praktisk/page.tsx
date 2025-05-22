@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { getCategoriesWithQuestions } from '@/lib/lib';
-import FaqCategory from '../components/ui/FaqCategory';
-import FilterButtons from '../components/ui/FilterButtons';
-import PageTitle from '../components/ui/PageTitle';
-import { Tables } from '@/types/supabase';
+import { useState, useEffect } from "react";
+import { getCategoriesWithQuestions } from "@/lib/lib";
+import FaqCategory from "../components/ui/FaqCategory";
+import FilterButtons from "../components/ui/FilterButtons";
+import PageTitle from "../components/ui/PageTitle";
+import { Tables } from "@/types/supabase";
 
-type FaqCategory = Tables<'faq_categories'> & {
-  faq_questions: Tables<'faq_questions'>[];
+type FaqCategory = Tables<"faq_categories"> & {
+  faq_questions: Tables<"faq_questions">[];
 };
 
 export default function PraktiskPage() {
@@ -36,16 +36,14 @@ export default function PraktiskPage() {
     setActiveFilter(filter);
   };
 
-  const filteredData = activeFilter
-    ? categories.filter((category) => category.id === activeFilter)
-    : categories;
+  const filteredData = activeFilter ? categories.filter((category) => category.id === activeFilter) : categories;
 
   if (loading) return <div>Loading...</div>;
 
   return (
     <div>
       <PageTitle title="Praktisk" baseFontSize={150} />
-      <div className="container mx-auto px-4 py-16 md:py-24">
+      <div className="container mx-auto px-4 py-8 md:py-12">
         <div className="flex flex-col md:flex-row">
           <div className="w-full md:hidden mb-8">
             <FilterButtons categories={categories} activeFilter={activeFilter} onFilterChange={handleFilterChange} />
@@ -55,10 +53,10 @@ export default function PraktiskPage() {
           </div>
           <div className="md:w-3/4">
             {filteredData
-            .filter(category => category.id !== "praktisk-frivillig")
-            .map((category) => (
-              <FaqCategory key={category.id} category={category} />
-            ))}
+              .filter((category) => category.id !== "praktisk-frivillig")
+              .map((category) => (
+                <FaqCategory key={category.id} category={category} />
+              ))}
           </div>
         </div>
       </div>
