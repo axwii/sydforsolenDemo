@@ -82,7 +82,7 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
         {secondaryImageUrl && (
           <Container>
             <div className="my-8 md:my-12 max-w-3xl mx-auto">
-              <div className="relative w-full h-[40vh] md:h-[60vh] shadow-lg">
+              <div className="relative w-full h-[40vh] md:h-[60vh]">
                 <Image
                   src={secondaryImageUrl}
                   alt={`${artist.name || 'Artist'} - secondary image`}
