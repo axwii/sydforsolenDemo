@@ -1,5 +1,5 @@
-export default function Footer() {
-  return (
+export const FooterContent = () => {
+    return (
     <footer className="w-full min-h-[515px] bg-[#D9D9D9] border-t border-black px-3 sm:px-6 md:px-8 pt-20 md:pt-40 flex flex-col md:flex-row justify-between gap-8 md:gap-0">
       <h2 className="font-exposure text-2xl sm:text-3xl md:text-[3.125rem] font-extrabold max-w-[600px]">Vi ses i Valbyparken.</h2>
 
@@ -11,5 +11,5 @@ export default function Footer() {
         <img src="/images/sydforsolenlogo.png" alt="Syd For Solen Logo" className="w-32 md:w-auto h-16 md:h-20 object-contain mt-5 md:mt-0" />
       </div>
     </footer>
-  );
+    );
 }

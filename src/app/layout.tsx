@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "../lib/SmoothScroll";
 import Navigation from "./components/layout/header/navigation";
-import Footer from "./components/layout/footer";
+import Footer from "./components/layout/footer/footer";
 import { usePathname } from "next/navigation";
 import Header from "./components/layout/header/header";
 
