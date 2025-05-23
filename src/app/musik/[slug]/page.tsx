@@ -64,7 +64,7 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
 
         {/* Video Embed */}
         {artist.video_embed_url && (
-          <DynamicBackgroundSection bgColor={musicDayBgColor} textColor={musicDayTextColor}>
+          <DynamicBackgroundSection bgColor={musicDayBgColor} textColor={musicDayTextColor} applyCurvedEdges={true}>
             <VideoEmbed videoUrl={artist.video_embed_url} artistName={artist.name || undefined} />
           </DynamicBackgroundSection>
         )}
