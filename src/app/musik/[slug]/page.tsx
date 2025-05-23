@@ -35,8 +35,8 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
           <Image
             src={heroImageUrl}
             alt={artist.name || 'Artist image'}
-            layout="fill"
-            objectFit="cover"
+            fill
+            className="object-cover"
             priority
             unoptimized={heroImageUrl.startsWith('http')} 
           />
@@ -64,7 +64,7 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
 
         {/* Video Embed */}
         {artist.video_embed_url && (
-          <DynamicBackgroundSection bgColor={musicDayBgColor} textColor={musicDayTextColor}>
+          <DynamicBackgroundSection bgColor={musicDayBgColor} textColor={musicDayTextColor} applyCurvedEdges={true}>
             <VideoEmbed videoUrl={artist.video_embed_url} artistName={artist.name || undefined} />
           </DynamicBackgroundSection>
         )}
@@ -82,12 +82,12 @@ export default async function ArtistPage({ params }: { params: { slug: string } 
         {secondaryImageUrl && (
           <Container>
             <div className="my-8 md:my-12 max-w-3xl mx-auto">
-              <div className="relative w-full h-[40vh] md:h-[60vh] shadow-lg">
+              <div className="relative w-full h-[40vh] md:h-[60vh]">
                 <Image
                   src={secondaryImageUrl}
                   alt={`${artist.name || 'Artist'} - secondary image`}
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  className="object-cover"
                   unoptimized={secondaryImageUrl.startsWith('http')} 
                 />
               </div>
