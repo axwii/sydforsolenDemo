@@ -7,17 +7,18 @@ import Container from '@/app/components/Container'; // Import the Container comp
 import BackButton from '@/app/components/ui/BackButton'; // Import the BackButton component
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export default async function ArtistPage({
   params,
   searchParams,
 }: PageProps) {
-  const { slug } = params;
+  const [resolvedParams, resolvedSearchParams] = await Promise.all([params, searchParams]);
+  const { slug } = resolvedParams;
   
   if (!slug) {
     notFound();
