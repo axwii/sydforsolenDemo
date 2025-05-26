@@ -6,14 +6,16 @@ import DynamicBackgroundSection from '@/app/components/musik/DynamicBackgroundSe
 import Container from '@/app/components/Container'; // Import the Container component
 import BackButton from '@/app/components/ui/BackButton'; // Import the BackButton component
 
-type Props = {
+interface PageProps {
   params: {
     slug: string;
   };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
 
-export default async function ArtistPage({ params }: Props) {
+export default async function ArtistPage(props: PageProps) {
+  const { params } = props;
+  
   if (!params.slug) {
     notFound();
   }
