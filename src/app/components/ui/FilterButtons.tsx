@@ -20,7 +20,7 @@ export default function FilterButtons({ categories, activeFilter, onFilterChange
       <button
         onClick={() => onFilterChange(null)}
         // MODIFIED: Styles for horizontal scroll items on mobile, full-width on desktop
-        className={`flex-shrink-0 whitespace-nowrap px-4 py-3 text-center rounded-md border md:w-full font-['Helvetica'] ${activeFilter === null ? "bg-black text-white" : "bg-gray-200 text-black hover:bg-gray-300"}`}
+        className={`flex-shrink-0 whitespace-nowrap px-4 py-3 text-center border border-black md:w-full font-['Helvetica'] ${activeFilter === null ? "bg-black text-white" : "text-black hover:bg-gray-300"}`}
       >
         VIS ALLE
       </button>
@@ -31,7 +31,7 @@ export default function FilterButtons({ categories, activeFilter, onFilterChange
             key={category.id}
             onClick={() => onFilterChange(category.id)}
             // MODIFIED: Styles for horizontal scroll items on mobile, full-width on desktop
-            className={`flex-shrink-0 whitespace-nowrap px-4 py-3 text-center rounded-md border md:w-full font-['Helvetica'] ${activeFilter === category.id ? "bg-black text-white" : "bg-gray-200 text-black hover:bg-gray-300"}`}
+            className={`flex-shrink-0 whitespace-nowrap px-4 py-3  border border-black md:w-full font-['Helvetica'] ${activeFilter === category.id ? "bg-black text-white" : " text-black hover:bg-gray-300"}`}
           >
             {category.title}
           </button>
