@@ -13,14 +13,17 @@ interface PageProps {
   searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-export default async function ArtistPage(props: PageProps) {
-  const { params } = props;
+export default async function ArtistPage({
+  params,
+  searchParams,
+}: PageProps) {
+  const { slug } = params;
   
-  if (!params.slug) {
+  if (!slug) {
     notFound();
   }
 
-  const { data: artist, error } = await getArtistBySlug(params.slug);
+  const { data: artist, error } = await getArtistBySlug(slug);
 
   if (error || !artist) {
     console.error('Error fetching artist:', error?.message);
