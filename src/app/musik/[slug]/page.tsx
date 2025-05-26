@@ -6,14 +6,19 @@ import DynamicBackgroundSection from '@/app/components/musik/DynamicBackgroundSe
 import Container from '@/app/components/Container'; // Import the Container component
 import BackButton from '@/app/components/ui/BackButton'; // Import the BackButton component
 
-export default async function ArtistPage({ params }: { params: { slug: string } }) {
-  const resolvedParams = await Promise.resolve(params);
+type Props = {
+  params: {
+    slug: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
-  if (!resolvedParams.slug) {
+export default async function ArtistPage({ params }: Props) {
+  if (!params.slug) {
     notFound();
   }
 
-  const { data: artist, error } = await getArtistBySlug(resolvedParams.slug);
+  const { data: artist, error } = await getArtistBySlug(params.slug);
 
   if (error || !artist) {
     console.error('Error fetching artist:', error?.message);
