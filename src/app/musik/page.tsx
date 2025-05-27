@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation"; // Import useRouter
+import { useRouter, useSearchParams } from "next/navigation";
 import DayProgramSection from "../components/musik/DayProgramSection";
 import { getDaysWithArtists } from "../../lib/lib";
 import { Tables } from "@/types/supabase"; // Import Supabase table types
@@ -11,14 +11,15 @@ type Artist = Tables<"artists">;
 type DayData = Tables<"music_days"> & { artists: Artist[] };
 
 export default function Music() {
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [daysWithArtists, setDaysWithArtists] = useState<DayData[]>([]);
-  const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null); // State for selected artist
-  const [loading, setLoading] = useState(true); // Loading state
+  const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); // Set loading to true when fetching starts
+      setLoading(true);
       try {
         const { data, error } = await getDaysWithArtists();
         if (error) {
@@ -26,24 +27,36 @@ export default function Music() {
           return;
         }
         if (data) {
-          setDaysWithArtists(data as DayData[]); // Set fetched data
+          setDaysWithArtists(data as DayData[]);
         }
       } catch (err) {
         console.error("Client-side error fetching data:", err);
-        // Handle error silently or show a message
       } finally {
-        setLoading(false); // Set loading to false once fetching is complete
+        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (!loading && daysWithArtists.length > 0) {
+      const dayId = searchParams.get('day');
+      if (dayId) {
+        const dayIndex = daysWithArtists.findIndex(day => day.id === parseInt(dayId));
+        if (dayIndex !== -1) {
+          const element = document.getElementById(`day-${dayId}`);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }
+    }
+  }, [loading, daysWithArtists, searchParams]);
+
   const handleArtistClick = (artist: Artist) => {
     setSelectedArtist(artist);
-    // You can add logic here to display artist details, e.g., open a modal or navigate
-    console.log("Selected artist:", artist.name);
-    router.push(`/musik/${artist.slug}`); // Navigate to artist's slug page
+    router.push(`/musik/${artist.slug}`);
   };
 
   if (loading) {
@@ -57,7 +70,9 @@ export default function Music() {
   return (
     <div className="space-y-0 relative">
       {daysWithArtists.map((dayData) => (
-        <DayProgramSection key={dayData.id} dayData={dayData} onArtistClick={handleArtistClick} />
+        <div key={dayData.id} id={`day-${dayData.id}`}>
+          <DayProgramSection dayData={dayData} onArtistClick={handleArtistClick} />
+        </div>
       ))}
       <div className="w-full h-[66px] bg-[#D9D9D9] border border-black border-b-0 flex items-center justify-center">
         <a href="/tidligereaar" className="font-['Helvetica_Neue'] font-bold text-center">
