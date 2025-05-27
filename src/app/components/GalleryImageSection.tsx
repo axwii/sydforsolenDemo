@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useLayoutEffect, useEffect } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -20,22 +20,29 @@ export default function GalleryImageSection({
     const imagesRef = useRef<HTMLDivElement[]>([]);
     const sectionRef = useRef<HTMLDivElement>(null);
 
-    useLayoutEffect(() => {
-        const context = gsap.context(() => {
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 1,
-                },
-            });
+    useEffect(() => {
+        // Small delay to ensure DOM is ready
+        const timer = setTimeout(() => {
+            if (sectionRef.current && imagesRef.current.length > 0) {
+                const context = gsap.context(() => {
+                    const tl = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: sectionRef.current,
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: 1,
+                        },
+                    });
 
-            tl.to(imagesRef.current[1], {y: -150}, 0)
-              .to(imagesRef.current[2], {y: -255}, 0);
-        });
+                    tl.to(imagesRef.current[1], {y: -150}, 0)
+                      .to(imagesRef.current[2], {y: -255}, 0);
+                });
 
-        return () => context.revert();
+                return () => context.revert();
+            }
+        }, 100);
+
+        return () => clearTimeout(timer);
     }, []);
 
     return (
