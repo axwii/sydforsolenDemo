@@ -36,7 +36,7 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[140px] h-[140px] md:w-[200px] md:h-[200px] rounded-full border-2 border-black"></div>
 
             {/* Center Link */}
-            <Link href="/billetter" onClick={onClose} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-lg font-extrabold text-center hover:text-red transition-colors duration-300 z-10">
+            <Link href="https://www.billetlugen.dk/campaign/sydforsolen/?affiliate=s0l" onClick={onClose} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-lg font-extrabold text-center hover:text-red transition-colors duration-300 z-10">
               KØB BILLETTER
             </Link>
 

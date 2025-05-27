@@ -35,7 +35,7 @@ const Navigation = () => {
   return (
     <motion.nav variants={container} initial="hidden" animate="show" className={`${isSticky ? "fixed top-0" : "absolute bottom-0"} left-0 w-full h-[50px] flex rounded-t-sm overflow-hidden z-50`}>
       {["MUSIK", "PARTNERE", "FRIVILLIG", "GALLERI", "PRAKTISK", "KØB BILLETTER"].map((text, index) => (
-        <Link href={`/${text.toLowerCase().replace(" ", "-")}`} key={index} className="flex-1">
+        <Link href={text === "KØB BILLETTER" ? "https://www.billetlugen.dk/campaign/sydforsolen/?affiliate=s0l" : `/${text.toLowerCase().replace(" ", "-")}`} key={index} className="flex-1">
           <motion.div variants={item} className="group relative h-full flex items-center justify-center border-l border-black/10 first:border-l-0 font-exposure font-extrabold overflow-hidden">
             {/* Base background */}
             <div className={`absolute inset-0 ${index === 5 ? "bg-gradient-to-br from-[#2D2D2D] to-[#1D1D1D]" : "bg-gradient-to-br from-[#E5E5E5] to-[#D9D9D9]"}`} />
@@ -45,7 +45,7 @@ const Navigation = () => {
           </motion.div>
         </Link>
       ))}
-    </motion.nav>
+    </motion.nav>  
   );
 };
 
