@@ -2,13 +2,22 @@ import Link from "next/link";
 import { posterData } from "./posterData";
 import { InteractiveHoverButton } from "../ui/interactive-hover-button";
 
+const getDayId = (posterId: number): number => {
+  const dayMapping: Record<number, number> = {
+    1: 2, // Friday poster -> Thursday
+    2: 1, // Thursday poster -> Friday
+    3: 3  // Saturday poster -> Saturday
+  };
+  return dayMapping[posterId] || posterId;
+};
+
 export default function Posters() {
   return (
     <div className="flex flex-row justify-center items-center w-full h-auto overflow-hidden">
       {posterData.map((poster) => (
         <Link 
           key={poster.id} 
-          href={`/musik?day=${poster.id === 1 ? 2 : poster.id === 2 ? 1 : poster.id}`} 
+          href={`/musik?day=${getDayId(poster.id)}`} 
           className="w-full h-auto relative"
         >
           <img src={poster.src} alt={poster.alt} className="w-full h-full object-cover transition-all duration-300" />
