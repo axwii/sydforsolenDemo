@@ -83,6 +83,24 @@ export type Database = {
         }
         Relationships: []
       }
+      email_service: {
+        Row: {
+          created_at: string
+          emails: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          emails?: string | null
+          id?: string
+        }
+        Update: {
+          created_at?: string
+          emails?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
       faq_categories: {
         Row: {
           created_at: string

@@ -87,3 +87,15 @@ export async function getDataSamarbejde() {
     .order('id');
 }
 
+export async function updateEmailService(name: string, email: string) {
+  // Create a new row for each submission
+  return await supabase
+    .from('email_service')
+    .insert({ 
+      id: crypto.randomUUID(),
+      name: name,
+      emails: email,
+      created_at: new Date().toISOString()
+    });
+}
+
