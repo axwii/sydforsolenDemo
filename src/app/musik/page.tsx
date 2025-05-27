@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import DayProgramSection from "../components/musik/DayProgramSection";
 import { getDaysWithArtists } from "../../lib/lib";
@@ -10,7 +10,7 @@ import { Tables } from "@/types/supabase"; // Import Supabase table types
 type Artist = Tables<"artists">;
 type DayData = Tables<"music_days"> & { artists: Artist[] };
 
-export default function Music() {
+function MusicContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [daysWithArtists, setDaysWithArtists] = useState<DayData[]>([]);
@@ -80,5 +80,17 @@ export default function Music() {
         </a>
       </div>
     </div>
+  );
+}
+
+export default function Music() {
+  return (
+    <Suspense fallback={
+      <div className="flex justify-center items-center min-h-screen">
+        <div>Loading...</div>
+      </div>
+    }>
+      <MusicContent />
+    </Suspense>
   );
 }
