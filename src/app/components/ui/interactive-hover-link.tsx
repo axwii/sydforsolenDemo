@@ -1,6 +1,7 @@
+"use client";
+
 import React from "react";
 import { cn } from "@/lib/utils";
-import { InteractiveHoverLink } from "./interactive-hover-link";
 
 interface InteractiveButtonProps {
   variant?: "light" | "dark" | "alternative" | "dynamic";
@@ -38,12 +39,27 @@ const InteractiveButtonBase = ({ children, variant = "light" }: InteractiveButto
   </>
 );
 
-export const InteractiveHoverButton = React.forwardRef<HTMLButtonElement, InteractiveButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>>(({ children, className, variant = "light", ...props }, ref) => (
-  <button ref={ref} className={cn(baseStyles, variantStyles[variant], className)} {...props}>
-    <InteractiveButtonBase variant={variant}>{children}</InteractiveButtonBase>
-  </button>
-));
+export const InteractiveHoverLink = React.forwardRef<HTMLAnchorElement, InteractiveButtonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>>(({ children, className, variant = "light", href, ...props }, ref) => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (href?.startsWith("#")) {
+      e.preventDefault();
+      const targetId = href.replace("#", "");
+      const element = document.getElementById(targetId);
 
-InteractiveHoverButton.displayName = "InteractiveHoverButton";
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }
+  };
 
-export { InteractiveHoverLink };
+  return (
+    <a ref={ref} className={cn(baseStyles, variantStyles[variant], className)} href={href} onClick={handleClick} {...props}>
+      <InteractiveButtonBase variant={variant}>{children}</InteractiveButtonBase>
+    </a>
+  );
+});
+
+InteractiveHoverLink.displayName = "InteractiveHoverLink";

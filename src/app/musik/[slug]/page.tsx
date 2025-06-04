@@ -1,10 +1,12 @@
-import Image from 'next/image';
-import { notFound } from 'next/navigation';
-import { getArtistBySlug } from '@/lib/lib';
-import VideoEmbed from '@/app/components/musik/VideoEmbed';
-import DynamicBackgroundSection from '@/app/components/musik/DynamicBackgroundSection'; // Import the new component
-import Container from '@/app/components/Container'; // Import the Container component
-import BackButton from '@/app/components/ui/BackButton'; // Import the BackButton component
+import Image from "next/image";
+import { notFound } from "next/navigation";
+import { getArtistBySlug } from "@/lib/lib";
+import VideoEmbed from "@/app/components/musik/VideoEmbed";
+import DynamicBackgroundSection from "@/app/components/musik/DynamicBackgroundSection"; // Import the new component
+import Container from "@/app/components/Container"; // Import the Container component
+import BackButton from "@/app/components/ui/BackButton"; // Import the BackButton component
+import { InteractiveHoverButton } from "@/app/components/ui/interactive-hover-button";
+import Link from "next/link";
 
 interface PageProps {
   params: Promise<{
@@ -13,13 +15,10 @@ interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export default async function ArtistPage({
-  params,
-  searchParams,
-}: PageProps) {
+export default async function ArtistPage({ params, searchParams }: PageProps) {
   const [resolvedParams, resolvedSearchParams] = await Promise.all([params, searchParams]);
   const { slug } = resolvedParams;
-  
+
   if (!slug) {
     notFound();
   }
@@ -27,15 +26,15 @@ export default async function ArtistPage({
   const { data: artist, error } = await getArtistBySlug(slug);
 
   if (error || !artist) {
-    console.error('Error fetching artist:', error?.message);
+    console.error("Error fetching artist:", error?.message);
     notFound();
   }
 
-  const musicDayBgColor = artist.music_days?.bg_color || 'bg-gray-100';
+  const musicDayBgColor = artist.music_days?.bg_color || "bg-gray-100";
   const musicDayTextColor = artist.music_days?.text_color; // Get text color
 
-  const heroImageUrl = artist.image && (artist.image.startsWith('http') || artist.image.startsWith('/')) ? artist.image : `/images/artistfolder/${artist.image}`;
-  const secondaryImageUrl = artist.secondary_image && (artist.secondary_image.startsWith('http') || artist.secondary_image.startsWith('/')) ? artist.secondary_image : `/images/artistfolder/${artist.secondary_image}`;
+  const heroImageUrl = artist.image && (artist.image.startsWith("http") || artist.image.startsWith("/")) ? artist.image : `/images/artistfolder/${artist.image}`;
+  const secondaryImageUrl = artist.secondary_image && (artist.secondary_image.startsWith("http") || artist.secondary_image.startsWith("/")) ? artist.secondary_image : `/images/artistfolder/${artist.secondary_image}`;
 
   return (
     <div className="bg-white text-black min-h-screen">
@@ -43,33 +42,21 @@ export default async function ArtistPage({
       {heroImageUrl && (
         <div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[70vh]">
           <BackButton alignment="left" containerClassName="absolute top-3 left-0 right-0 container mx-auto px-5 z-20" />
-          <Image
-            src={heroImageUrl}
-            alt={artist.name || 'Artist image'}
-            fill
-            className="object-cover"
-            priority
-            unoptimized={heroImageUrl.startsWith('http')} 
-          />
+          <Image src={heroImageUrl} alt={artist.name || "Artist image"} fill className="object-cover" priority unoptimized={heroImageUrl.startsWith("http")} />
         </div>
       )}
 
       {/* Content Section Wrapper */}
       <div className="py-8 md:py-12">
-
         {/* Artist Name */}
         <Container>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center my-6 md:my-10">
-            {artist.name}
-          </h1>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center my-6 md:my-10">{artist.name}</h1>
         </Container>
 
         {/* Description 1 */}
         {artist.description1 && (
           <Container>
-            <p className="text-base md:text-lg leading-relaxed mb-8 max-w-3xl mx-auto text-gray-700">
-              {artist.description1}
-            </p>
+            <p className="text-base md:text-lg leading-relaxed mb-8 max-w-3xl mx-auto text-gray-700">{artist.description1}</p>
           </Container>
         )}
 
@@ -83,9 +70,7 @@ export default async function ArtistPage({
         {/* Description 2 */}
         {artist.description2 && (
           <Container>
-            <p className="text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
-              {artist.description2}
-            </p>
+            <p className="text-base md:text-lg leading-relaxed max-w-3xl mx-auto">{artist.description2}</p>
           </Container>
         )}
 
@@ -94,13 +79,7 @@ export default async function ArtistPage({
           <Container>
             <div className="my-8 md:my-12 max-w-3xl mx-auto">
               <div className="relative w-full h-[40vh] md:h-[60vh]">
-                <Image
-                  src={secondaryImageUrl}
-                  alt={`${artist.name || 'Artist'} - secondary image`}
-                  fill
-                  className="object-cover"
-                  unoptimized={secondaryImageUrl.startsWith('http')} 
-                />
+                <Image src={secondaryImageUrl} alt={`${artist.name || "Artist"} - secondary image`} fill className="object-cover" unoptimized={secondaryImageUrl.startsWith("http")} />
               </div>
             </div>
           </Container>
@@ -109,11 +88,18 @@ export default async function ArtistPage({
         {/* Description 3 */}
         {artist.description3 && (
           <Container>
-            <p className="text-base md:text-lg leading-relaxed my-8 max-w-3xl mx-auto text-gray-700">
-              {artist.description3}
-            </p>
+            <p className="text-base md:text-lg leading-relaxed my-8 max-w-3xl mx-auto text-gray-700">{artist.description3}</p>
           </Container>
         )}
+
+        {/* Ticket Button */}
+        <Container>
+          <div className="flex justify-center my-8">
+            <Link href="https://www.billetlugen.dk/campaign/sydforsolen/?affiliate=s0l" target="_blank" rel="noopener noreferrer">
+              <InteractiveHoverButton variant="dark">Køb billet</InteractiveHoverButton>
+            </Link>
+          </div>
+        </Container>
       </div>
     </div>
   );

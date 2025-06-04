@@ -45,7 +45,7 @@ const Navigation = () => {
           </motion.div>
         </Link>
       ))}
-    </motion.nav>  
+    </motion.nav>
   );
 };
 
