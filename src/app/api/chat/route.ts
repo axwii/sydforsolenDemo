@@ -150,26 +150,35 @@ Oplever du problemer i løbet af dagen, så hiv venligst fat i Security, så vil
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const userQuestion: string = body.question;
+    // Expect an array of messages from the client
+    const clientMessages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = body.messages;
 
-    // 3) Build messages array. First the "system" prompt with all festival info,
-    //    then the user's question.
-    const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
+    if (!clientMessages || !Array.isArray(clientMessages) || clientMessages.length === 0) {
+      return NextResponse.json({ error: "No messages provided or invalid format." }, { status: 400 });
+    }
+
+    // Validate that all messages have string content
+    for (const msg of clientMessages) {
+      if (typeof msg.content !== 'string') {
+        console.error("OpenAI Error: Message with invalid content found:", msg);
+        return NextResponse.json({ error: "Invalid message content: content must be a string." }, { status: 400 });
+      }
+    }
+
+    // Construct the messages array for OpenAI by prepending the system prompt
+    const messagesForOpenAI: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
       {
         role: "system",
         content: `Du er en hjælpsom assistent, der **kun** svarer på spørgsmål baseret på følgende information om SYD FOR SOLEN-festivalen. Hvis spørgsmålet ligger uden for denne information, må du svare: "Undskyld, jeg kan kun besvare spørgsmål om Syd For Solen-festivalens information." 
 ${FESTIVAL_INFO}`,
       },
-      {
-        role: "user",
-        content: userQuestion,
-      },
+      ...clientMessages, // Spread the messages from the client
     ];
 
-    // 4) Call Chat Completion endpoint with GPT-4.1-nano
+    // 4) Call Chat Completion endpoint
     const completion = await openai.chat.completions.create({
-      model: "gpt-4.1-nano", // Use the nano model for cost efficiency
-      messages,
+      model: "gpt-4.1-nano", 
+      messages: messagesForOpenAI,
       temperature: 0.2, // low temperature so it sticks strictly to the provided info
     });
 

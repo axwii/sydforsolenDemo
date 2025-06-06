@@ -1,177 +1,233 @@
 "use client";
 
-import React, { useState, FormEvent } from "react";
+import { useState, useRef, useEffect, FormEvent } from "react";
 
+// Define Message type directly in the component
 type Message = {
-  sender: "user" | "bot";
-  text: string;
+  role: "user" | "assistant";
+  content: string;
 };
 
 export default function ChatBot() {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
-  const toggleOpen = () => setOpen((prev) => !prev);
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isOpen]);
 
-  const sendMessage = async (e: FormEvent) => {
+  async function sendMessage(e: FormEvent) {
     e.preventDefault();
-    if (!input.trim()) return;
+    const trimmed = input.trim();
+    if (!trimmed) return;
 
-    // 1) Add the user’s message to state
-    const userMsg: Message = { sender: "user", text: input.trim() };
+    const userMsg: Message = { role: "user", content: trimmed };
     setMessages((prev) => [...prev, userMsg]);
-    setLoading(true);
+    setInput("");
+    setIsLoading(true);
 
     try {
-      // 2) Call our API route
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: input.trim() }),
+        // Send the whole messages array to the backend
+        body: JSON.stringify({ messages: [...messages, userMsg] }),
       });
 
-      const data = await res.json();
-      if (data.error) {
-        throw new Error(data.error);
+      if (!res.ok) {
+        throw new Error(`Status ${res.status}`);
       }
 
-      // 3) Add the bot’s answer to state
-      const botMsg: Message = { sender: "bot", text: data.answer };
-      setMessages((prev) => [...prev, botMsg]);
+      const data = (await res.json()) as { answer?: string; error?: string };
+      if (data.error) {
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: "Beklager, der skete en fejl." },
+        ]);
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: data.answer! },
+        ]);
+      }
     } catch (err) {
       console.error(err);
-      const errorMsg: Message = {
-        sender: "bot",
-        text: "Der skete en fejl. Prøv igen senere.",
-      };
-      setMessages((prev) => [...prev, errorMsg]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: "Beklager, der skete en fejl. Prøv igen senere.",
+        },
+      ]);
     } finally {
-      setLoading(false);
-      setInput("");
+      setIsLoading(false);
     }
-  };
+  }
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
-      {/* 1) The toggle button */}
+    <>
       <button
-        onClick={toggleOpen}
-        className="w-12 h-12 rounded-full bg-blue-600 text-white shadow-lg flex items-center justify-center"
-        aria-label={open ? "Luk chat" : "Åbn chat"}
+        onClick={() => setIsOpen(!isOpen)}
+        style={{
+          position: "fixed",
+          bottom: "24px",
+          right: "24px",
+          width: "56px",
+          height: "56px",
+          borderRadius: "50%",
+          backgroundColor: "#0070f3",
+          border: "none",
+          color: "#fff",
+          fontSize: "24px",
+          cursor: "pointer",
+          zIndex: 1000,
+          display: "flex", // Added for centering icon
+          alignItems: "center", // Added for centering icon
+          justifyContent: "center", // Added for centering icon
+        }}
+        aria-label={isOpen ? "Luk chat" : "Åbn chat"}
       >
-        {open ? (
-          // “Close X” icon
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        ) : (
-          // “Chat bubble” icon
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.77 9.77 0 01-4.255-.911L3 20l1.14-4.257A8.093 8.093 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-            />
-          </svg>
-        )}
+        {isOpen ? "×" : "💬"}
       </button>
 
-      {/* 2) The popup chat window */}
-      {open && (
-        <div className="mt-2 w-80 max-h-96 bg-white rounded-lg shadow-xl flex flex-col overflow-hidden">
-          <div className="bg-blue-600 text-white px-4 py-2 flex justify-between items-center">
-            <span>Chat med os</span>
-            <button onClick={toggleOpen} aria-label="Luk chat">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+      {isOpen && (
+        <div
+          style={{
+            position: "fixed",
+            bottom: "96px",
+            right: "24px",
+            width: "320px",
+            maxHeight: "500px",
+            backgroundColor: "#fff",
+            boxShadow: "0 4px 14px rgba(0, 0, 0, 0.1)",
+            borderRadius: "8px",
+            display: "flex",
+            flexDirection: "column",
+            overflow: "hidden",
+            zIndex: 1000,
+          }}
+        >
+          <div
+            style={{
+              padding: "12px",
+              backgroundColor: "#0070f3",
+              color: "#fff",
+              fontWeight: "bold",
+              display: "flex", // Added for layout
+              justifyContent: "space-between", // Added for layout
+              alignItems: "center", // Added for layout
+            }}
+          >
+            <span>Spørg om Syd for Solen</span>
+            <button
+              onClick={() => setIsOpen(false)}
+              style={{
+                background: "none",
+                border: "none",
+                color: "white",
+                fontSize: "18px",
+                cursor: "pointer",
+              }}
+              aria-label="Luk chat"
+            >
+              ×
             </button>
           </div>
 
-          {/* Message list */}
-          <div className="flex-1 overflow-y-auto p-3 space-y-2">
-            {messages.map((msg, idx) => (
+          <div
+            style={{
+              flex: 1,
+              padding: "8px",
+              overflowY: "auto",
+              backgroundColor: "#f5f5f5",
+              fontSize: "14px",
+            }}
+          >
+            {messages.map((m, i) => (
               <div
-                key={idx}
-                className={`flex ${
-                  msg.sender === "user" ? "justify-end" : "justify-start"
-                }`}
+                key={i}
+                style={{
+                  marginBottom: "8px",
+                  textAlign: m.role === "user" ? "right" : "left",
+                }}
               >
                 <div
-                  className={`px-3 py-2 rounded-lg max-w-[70%] ${
-                    msg.sender === "user"
-                      ? "bg-blue-100 text-gray-800"
-                      : "bg-gray-100 text-gray-800"
-                  }`}
+                  style={{
+                    display: "inline-block",
+                    padding: "8px 12px", // Adjusted padding
+                    borderRadius: "12px",
+                    backgroundColor: m.role === "user" ? "#0070f3" : "#e0e0e0",
+                    color: m.role === "user" ? "#fff" : "#000",
+                    maxWidth: "80%",
+                    wordBreak: "break-word",
+                    lineHeight: "1.4", // Added for readability
+                  }}
                 >
-                  {msg.text}
+                  {m.content}
                 </div>
               </div>
             ))}
-            {loading && (
-              <div className="flex justify-start">
-                <div className="px-3 py-2 rounded-lg bg-gray-100 text-gray-500">
+            {isLoading && (
+              <div style={{ textAlign: "left", marginBottom: "8px" }}>
+                <div
+                  style={{
+                    display: "inline-block",
+                    padding: "8px 12px",
+                    borderRadius: "12px",
+                    backgroundColor: "#e0e0e0",
+                    color: "#000",
+                    maxWidth: "80%",
+                    wordBreak: "break-word",
+                    lineHeight: "1.4",
+                  }}
+                >
                   <em>GPT skriver…</em>
                 </div>
               </div>
             )}
+            <div ref={bottomRef} />
           </div>
 
-          {/* Input box */}
           <form
             onSubmit={sendMessage}
-            className="border-t px-3 py-2 flex items-center"
+            style={{ display: "flex", borderTop: "1px solid #ddd", padding: "8px" }} // Added padding
           >
             <input
-              type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Skriv din besked..."
-              className="flex-1 border rounded-l-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Skriv dit spørgsmål…"
+              disabled={isLoading}
+              style={{
+                flex: 1,
+                border: "1px solid #ccc", // Added border
+                padding: "8px",
+                fontSize: "14px",
+                outline: "none",
+                borderRadius: "4px", // Added border radius
+                marginRight: "8px", // Added margin
+              }}
             />
             <button
               type="submit"
-              disabled={loading || !input.trim()}
-              className={`bg-blue-600 text-white px-3 py-1 rounded-r-md ${
-                (loading || !input.trim()) && "opacity-50 cursor-not-allowed"
-              }`}
+              disabled={isLoading || !input.trim()} // Disable if input is empty
+              style={{
+                border: "none",
+                backgroundColor: (isLoading || !input.trim()) ? "#a0cfff" : "#0070f3", // Adjusted disabled style
+                color: "#fff",
+                padding: "8px 12px", // Adjusted padding
+                cursor: (isLoading || !input.trim()) ? "not-allowed" : "pointer",
+                borderRadius: "4px", // Added border radius
+                fontSize: "14px", // Added font size
+              }}
             >
-              Send
+              {isLoading ? "…" : "Send"}
             </button>
           </form>
         </div>
       )}
-    </div>
+    </>
   );
 }
