@@ -16,7 +16,9 @@ export default function ChatBot() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (isOpen) {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
   }, [messages, isOpen]);
 
   async function sendMessage(e: FormEvent) {
@@ -33,33 +35,42 @@ export default function ChatBot() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // Send the whole messages array to the backend
         body: JSON.stringify({ messages: [...messages, userMsg] }),
       });
 
       if (!res.ok) {
-        throw new Error(`Status ${res.status}`);
+        throw new Error(`Server responded with status ${res.status}`);
       }
 
       const data = (await res.json()) as { answer?: string; error?: string };
       if (data.error) {
+        const errorMessageContent: string = data.error || "En ukendt fejl opstod.";
         setMessages((prev) => [
           ...prev,
-          { role: "assistant", content: "Beklager, der skete en fejl." },
+          { role: "assistant", content: errorMessageContent },
+        ]);
+      } else if (data.answer) {
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: data.answer! }, // data.answer is string here due to the if condition
         ]);
       } else {
         setMessages((prev) => [
           ...prev,
-          { role: "assistant", content: data.answer! },
+          { role: "assistant", content: "Modtog et uventet svar fra serveren." },
         ]);
       }
     } catch (err) {
-      console.error(err);
+      console.error("SendMessage Error:", err);
+      let errorMessage = "Beklager, der skete en teknisk fejl.";
+      if (err instanceof Error) {
+        errorMessage = err.message;
+      }
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: "Beklager, der skete en fejl. Prøv igen senere.",
+          content: errorMessage,
         },
       ]);
     } finally {
@@ -71,23 +82,7 @@ export default function ChatBot() {
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        style={{
-          position: "fixed",
-          bottom: "24px",
-          right: "24px",
-          width: "56px",
-          height: "56px",
-          borderRadius: "50%",
-          backgroundColor: "#0070f3",
-          border: "none",
-          color: "#fff",
-          fontSize: "24px",
-          cursor: "pointer",
-          zIndex: 1000,
-          display: "flex", // Added for centering icon
-          alignItems: "center", // Added for centering icon
-          justifyContent: "center", // Added for centering icon
-        }}
+        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-black text-white text-2xl z-[1000] flex items-center justify-center cursor-pointer shadow-lg hover:bg-gray-800 transition-colors"
         aria-label={isOpen ? "Luk chat" : "Åbn chat"}
       >
         {isOpen ? "×" : "💬"}
@@ -95,42 +90,15 @@ export default function ChatBot() {
 
       {isOpen && (
         <div
-          style={{
-            position: "fixed",
-            bottom: "96px",
-            right: "24px",
-            width: "320px",
-            maxHeight: "500px",
-            backgroundColor: "#fff",
-            boxShadow: "0 4px 14px rgba(0, 0, 0, 0.1)",
-            borderRadius: "8px",
-            display: "flex",
-            flexDirection: "column",
-            overflow: "hidden",
-            zIndex: 1000,
-          }}
+          className="fixed bottom-24 right-6 left-6 sm:left-auto w-auto sm:w-80 max-w-md max-h-[70vh] sm:max-h-[500px] bg-white shadow-xl rounded-lg flex flex-col overflow-hidden z-[1000] font-helvetica"
         >
           <div
-            style={{
-              padding: "12px",
-              backgroundColor: "#0070f3",
-              color: "#fff",
-              fontWeight: "bold",
-              display: "flex", // Added for layout
-              justifyContent: "space-between", // Added for layout
-              alignItems: "center", // Added for layout
-            }}
+            className="p-3 bg-black text-white font-helvetica-bold flex justify-between items-center"
           >
             <span>Spørg om Syd for Solen</span>
             <button
               onClick={() => setIsOpen(false)}
-              style={{
-                background: "none",
-                border: "none",
-                color: "white",
-                fontSize: "18px",
-                cursor: "pointer",
-              }}
+              className="bg-transparent border-none text-white text-xl leading-none cursor-pointer hover:text-gray-300"
               aria-label="Luk chat"
             >
               ×
@@ -138,53 +106,28 @@ export default function ChatBot() {
           </div>
 
           <div
-            style={{
-              flex: 1,
-              padding: "8px",
-              overflowY: "auto",
-              backgroundColor: "#f5f5f5",
-              fontSize: "14px",
-            }}
+            className="flex-1 p-3 space-y-3 overflow-y-auto bg-secondary text-sm"
           >
             {messages.map((m, i) => (
               <div
                 key={i}
-                style={{
-                  marginBottom: "8px",
-                  textAlign: m.role === "user" ? "right" : "left",
-                }}
+                className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  style={{
-                    display: "inline-block",
-                    padding: "8px 12px", // Adjusted padding
-                    borderRadius: "12px",
-                    backgroundColor: m.role === "user" ? "#0070f3" : "#e0e0e0",
-                    color: m.role === "user" ? "#fff" : "#000",
-                    maxWidth: "80%",
-                    wordBreak: "break-word",
-                    lineHeight: "1.4", // Added for readability
-                  }}
+                  className={`p-2 px-3 rounded-lg max-w-[85%] break-words leading-normal shadow ${m.role === "user"
+                      ? "bg-black text-white"
+                      : "bg-grey text-black"}`}
                 >
                   {m.content}
                 </div>
               </div>
             ))}
             {isLoading && (
-              <div style={{ textAlign: "left", marginBottom: "8px" }}>
+              <div className="flex justify-start">
                 <div
-                  style={{
-                    display: "inline-block",
-                    padding: "8px 12px",
-                    borderRadius: "12px",
-                    backgroundColor: "#e0e0e0",
-                    color: "#000",
-                    maxWidth: "80%",
-                    wordBreak: "break-word",
-                    lineHeight: "1.4",
-                  }}
+                  className="p-2 px-3 rounded-lg bg-grey text-black max-w-[85%] break-words leading-normal shadow italic"
                 >
-                  <em>GPT skriver…</em>
+                  GPT skriver…
                 </div>
               </div>
             )}
@@ -193,35 +136,19 @@ export default function ChatBot() {
 
           <form
             onSubmit={sendMessage}
-            style={{ display: "flex", borderTop: "1px solid #ddd", padding: "8px" }} // Added padding
+            className="border-t border-border p-2 flex items-center bg-white"
           >
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Skriv dit spørgsmål…"
               disabled={isLoading}
-              style={{
-                flex: 1,
-                border: "1px solid #ccc", // Added border
-                padding: "8px",
-                fontSize: "14px",
-                outline: "none",
-                borderRadius: "4px", // Added border radius
-                marginRight: "8px", // Added margin
-              }}
+              className="flex-1 border border-input p-2 text-sm outline-none rounded-md mr-2 focus:ring-2 focus:ring-black focus:border-black"
             />
             <button
               type="submit"
-              disabled={isLoading || !input.trim()} // Disable if input is empty
-              style={{
-                border: "none",
-                backgroundColor: (isLoading || !input.trim()) ? "#a0cfff" : "#0070f3", // Adjusted disabled style
-                color: "#fff",
-                padding: "8px 12px", // Adjusted padding
-                cursor: (isLoading || !input.trim()) ? "not-allowed" : "pointer",
-                borderRadius: "4px", // Added border radius
-                fontSize: "14px", // Added font size
-              }}
+              disabled={isLoading || !input.trim()}
+              className="border-none bg-black text-white p-2 px-3 rounded-md text-sm cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-gray-800 transition-colors"
             >
               {isLoading ? "…" : "Send"}
             </button>
