@@ -6,6 +6,7 @@ import FaqCategory from "../components/ui/FaqCategory";
 import FilterButtons from "../components/ui/FilterButtons";
 import PageTitle from "../components/ui/PageTitle";
 import { Tables } from "@/types/supabase";
+import ChatBot from "../components/ChatBot";
 
 type FaqCategory = Tables<"faq_categories"> & {
   faq_questions: Tables<"faq_questions">[];
@@ -43,6 +44,7 @@ export default function PraktiskPage() {
   return (
     <div>
       <PageTitle title="Praktisk" baseFontSize={150} />
+      <ChatBot />
       <div className="container mx-auto px-4 md:py-10">
         <div className="flex flex-col md:flex-row">
           <div className="w-full md:hidden mb-8">

@@ -1,0 +1,185 @@
+// File: src/app/api/chat/route.ts
+import { NextRequest, NextResponse } from "next/server";
+import OpenAI from "openai";
+
+// 1) Initialize OpenAI with your environment variable.
+//    Make sure you have set OPENAI_API_KEY in your .env.local (or environment).
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+// 2) Paste the full festival FAQ (exactly as in your prompt) into a string.
+//    The model will only use this information to answer. If a question falls outside,
+//    we’ll instruct it to say “Sorry, I can only answer based on the festival info.”
+const FESTIVAL_INFO = `
+HVOR & HVORNÅR?
+SYD FOR SOLEN finder sted i Valbyparken i København. 
+
+FIND VEJ TIL OG PÅ SYD FOR SOLEN
+HER
+DATOER:
+Torsdag den 7. august 2025 – Pladsen åbner kl. 13:00
+Fredag den 8. august 2025 – Pladsen åbner kl. 13:00
+Lørdag den 9. august 2025 – Pladsen åbner kl. 13:00 
+
+Der tages forbehold for ændringer i programmet.
+
+HVORNÅR STARTER BILLETSALGET?
+Det officielle billetsalg starter tirsdag den 3. december kl. 10:00, men som modtager af SYD FOR SOLENs nyhedsbrev kan du sikre dig billetter allerede tirsdag den 26. november kl. 10:00 via vores presale.
+
+Tilmeld dig HER og vær sikker på at få billet.
+
+OBS! Man kan maks. købe 4 billetter pr. person.
+
+KAN MAN KØBE PARTOUTBILLETTER TIL SYD FOR SOLEN 2025?
+Ja, det kan du godt! Det er muligt at købe éndagsbilletter, 2-dagsbilletter og partoutbilletter. 
+
+HVAD KOSTER EN BILLET?
+1-dagsbillet: DKK 900 + gebyr
+2-dagsbillet: DKK 1.650 + gebyr
+Partoutbillet: DKK 2.400 + gebyr 
+
+ER BØRN VELKOMNE PÅ FESTIVALEN?
+Børn i alle aldre er velkomne på SYD FOR SOLEN, hvis de har en gyldig billet. 
+
+Der er et begrænset antal baby- og børnebilletter, som kan tilkøbes, når du køber din almindelige billet. Bemærk at det ikke er tilladt at have barnevogn eller klapvogn med ind på festivalpladsen.  
+
+Børn under 14 år skal ledsages af en voksen. 
+
+Vi fraråder, at der er børn på pladsen efter kl. 20:00.
+
+Babybillet (0-2 år): DKK 0 kr + gebyr.
+Børnebillet (3-13 år): DKK 450 + gebyr.
+
+TRANSPORT
+SYD FOR SOLEN ligger midt i Valbyparken, hvor du kan komme til med både bus, metro, S-tog og cykel. Vi anbefaler, at du lader bilen blive derhjemme, da vi ikke kan tilbyde nogle parkeringsmuligheder.  
+
+Du kan finde din offentlige transport til SYD FOR SOLEN på rejseplanen.dk eller på app. Google Maps giver dig en fin idé om, hvordan du finder Valbyparken og alle dine venner. 
+
+SKAL JEG HAVE PRINTET MIN BILLET FOR AT KOMME IND?
+Nej! Vi elsker at spare på papiret, så vi anbefaler, at du medbringer din billet på mobilen. Vi accepterer selvfølgelig også printede billetter.
+
+NYHEDER OM FESTIVALEN
+Hvis du vil holde dig løbende opdateret på nyheder om festivalen, kan du tilmelde dig vores nyhedsbrev her.
+
+Derudover kan du følge os på Facebook og Instagram, hvor vi løbende deler de seneste nyheder om festivalen og programmet og tæller ned til SYD FOR SOLEN.
+
+FRIVILLIG PÅ SYD FOR SOLEN
+Vi får løbende spørgsmål om, hvornår man kan tilmelde sig som frivillig til SYD FOR SOLEN – og vi forstår det godt! Festivalen ville ikke være det samme uden de engagerede mennesker, der er med til at få det hele til at spille.
+
+Når vi åbner for tilmeldingen, skal vi selvfølgelig nok råbe højt om det på vores kanaler. Så følg med her og på vores sociale medier, hvis du vil være en del af fællesskabet bag festivalen. Vi glæder os til at dele mere snart!
+
+KAN JEG OVERNATTE PÅ PLADSEN?
+Nej – når musikken slutter er det tid til at forlade pladsen, gå ud i sommernatten i København eller hjem i seng. Hvor den står, er op til dig.
+
+KAN JEG FORLADE FESTIVALPLADSEN OG KOMME TILBAGE IGEN?
+Ja, man kan godt forlade festivalpladsen og komme tilbage igen.
+
+ER DER PANT PÅ DRIKKEVARER PÅ PLADSEN?
+Ja! I forbindelse med salg af drikkevarer samarbejder vi med Røde Kors, som indsamler pant på pladsen. Beløbet for indsamlet pant går direkte til Røde Kors. Ønsker du at støtte, skal du derfor blot aflevere din emballage i en af de markerede donations-beholdere eller til en af Røde Kors’ mange frivillige pantsamlere på pladsen. 
+
+MÅ JEG MEDBRINGE MAD OG DRIKKE TIL FESTIVALPLADSEN?
+Du må ikke medbringe mad og drikke til festivalen. Vi tilbyder et frisklavet og håndplukket udvalg af mad og drikke på festivalpladsen, som du allerede nu godt så småt kan begynde at glæde dig til. 
+
+PANT PÅ PLADSEN
+Som del af vores bæredygtighed har vi på SYD FOR SOLEN naturligvis et omfattende pantsystem, der inkluderer vaskbare krus, kander, shots-rør og vandflasker. Så skål, drik ud og indløs så din pant eller donér din tomme drinksemballage til indsamlerne fra Røde Kors, som vi har arbejdet tæt sammen med siden første festival i 2022. Så kan du slukke tørsten, passer på miljøet og støtter mennesker i nød i ét hug.
+
+AFFALDSSORTERING
+Det er alle os i bag diskene der producerer langt det meste skrald på SYD FOR SOLEN. Derfor har vi en udvidet affaldssortering i produktionen og sorterer alt affald i hele 16 forskellige fraktioner. Som gæst beder vi dig om at sortere dit affald i fire forskellige kategorier, som er tydeligt markeret ved skraldespandene over hele pladsen. Det er et stort og komplekst arbejde at sortere alt på en festival, men det er også en selvfølge. Så vi tager også for givet at du hjælper til og sorterer dit skrald, så festivalen ser lige så lækker ud som den lyder alle tre dage.
+
+BETALING PÅ PLADSEN
+Du kan udelukkende betale med kreditkort (Dankort, MasterCard, osv.) i alle boder og barer på pladsen. Du kan IKKE betale med kontanter eller med MobilePay, så husk kreditkortet, når du skal afsted.
+
+BRUG AF BILLEDER
+Er du med i billedet? Vi tager løbende billeder og optager video på SYD FOR SOLEN. Måske er du i fokus? Hvis du er, vil vi bede dig om din tilladelse til fortsat at bruge billedet, hvis vi ikke allerede har fået den. Er du midt i crowd’en, har vi måske ikke haft mulighed for at få tilladelse fra jer alle sammen. Har du spørgsmål i den forbindelse, er du selvfølgelig meget velkommen til at kontakte os på info@sydforsolen.dk. 
+
+Hvis du selv har billeder, som SYD FOR SOLEN må bruge og dele, skal du endeligt tagge os. Så bliver vi rigtig glade.
+
+KÆRE NABOER TIL SYD FOR SOLEN
+SYD FOR SOLEN har som erklæret målsætning, at vi vil være et positivt indslag i lokalsamfundet. SYD FOR SOLEN skal være en fest for dem der deltager, og en hensynsfuld nabo for dem, der ikke deltager. 
+
+Bag SYD FOR SOLEN står vi – smash!bang!pow! Vi er erfarne koncertarrangører og har produceret koncerter siden 2008. Vi er meget taknemmelige for, at SYD FOR SOLEN må låne Valbyparken, og vi vil naturligvis passe rigtig godt på det helt unikke sted, som området er for jer, der bruger det til daglig.
+
+GLEMTE SAGER
+
+Mistede sager kan indleveres og afhentes hos billetkontoret ved indgangen til festivalen.
+Efter festivalen bliver det indleveret til politiets hittegodskontor.
+HVAD MÅ JEG HAVE MED PÅ PLADSEN?
+Det er en god idé at pakke en lille taske med en ekstra trøje og evt.  en tynd regnjakke, så du ikke fryser, når mørket falder på. Tag også gerne en tom drikkedunk og lidt solcreme med i tasken, så du er rustet til at være ude hele dagen.
+
+For at undgå unødvendig ventetid for dig selv og de øvrige gæster, så lad være med at medbringe andet end det mest nødvendige til festivalen. Visitation foretages ved indgangen og sikkerhedspersonalet har kompetence og ret til at beslutte, om en genstand kan medbringes til arrangementet.
+
+Så hvis du er i tvivl, om en ting må medbringes, så lad være at tage den med.
+
+Det er IKKE tilladt at medbringe:
+
+Paraplyer
+Klapstole / Festivalstole – desuden må tæpper af plads- og sikkerhedshensyn ikke medbringes torsdag.
+Skamler / taburetter
+Mad og drikke i hvilken som helst indpakning
+Termokander og krus
+Dyr!
+Våben eller genstande, der kan anvendes som våben
+Professionelt fotoudstyr, spejlreflekskamera, båndoptager, videokamera, lyd- og videooptager
+Selfiestænger
+iPads / tablets
+Grill af enhver art – og alle andre former for køkkenudstyr.
+Fyrværkeri, inkl. romerlys og røgbomber
+Alkohol og alle former for stoffer
+Laserpenne
+Alle former for flag og bannere
+Genstande af enhver art, der tjener til kommercielle formål uden forudgående aftale med festivalen.
+Store tasker/rygsække og kufferter. Med stor taske menes alle former for bagage og opbevaring, der er større end en mulepose.
+Barnevogne og klapvogne
+Alle typer droner
+Rollator – det er ikke muligt at tage sin rollator med ind på koncertpladsen af sikkerhedsmæssige årsager. Er du ikke i stand til at deltage i koncerten uden, bedes du henvende dig til os på info@sydforsolen.dk inden koncerten, så finder vi en løsning.
+Du vil blive nægtet adgang til arrangementet, hvis sikkerhedspersonalet vurderer, at du er tydeligt påvirket af alkohol eller euforiserende stoffer.
+
+SÆRLIGE BEHOV
+Vi har gjort os umage med, at adgangen til koncertpladsen er handicapvenlig og har podier og toiletter til kørestolsbrugere. Disse tiltag er kun for gæster, med handicap- eller ledsager- eller børnebillet, da toiletterne desuden indeholder puslefaciliteter.
+
+Der vil blive sendt specifik info ud til købere af kørestolsbilletter, der har til formål at gøre festivaloplevelsen så god og ligetil som muligt.
+
+Køb din kørestolsbillet eller billet til andet handicap på Billetlugen på +45 70263267. Ved køb af kørestolsbillet eller billet til andet handicap kan du gratis have en ledsager med. Det kræver et officielt ledsagerkort. Oplys, at du har en ledsager med, når du køber billetten, da der ikke kan udstedes ledsagerbilletter på koncertdagen.
+
+Har du spørgsmål i forbindelse med adgang til kørestolspodiet eller andet i relation til et eventuelt handicap, kan du kontakte os på info@sydforsolen.dk så svarer vi i en fart.
+
+Oplever du problemer i løbet af dagen, så hiv venligst fat i Security, så vil vi forsøge at hjælpe dig på bedste vis, så din oplevelse på pladsen bliver så god som mulig. Vi vil også, efter festivalen, være meget taknemmelige for alle input og eventuelle kritikpunkter i forbindelse med pladsens tilgængelighed. Så vi i fremtiden kan gøre det bedre, hvis der er noget, vi har overset eller skal ændre for, at alle får en god oplevelse på pladsen.  
+`;
+
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const userQuestion: string = body.question;
+
+    // 3) Build messages array. First the "system" prompt with all festival info,
+    //    then the user's question.
+    const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
+      {
+        role: "system",
+        content: `Du er en hjælpsom assistent, der **kun** svarer på spørgsmål baseret på følgende information om SYD FOR SOLEN-festivalen. Hvis spørgsmålet ligger uden for denne information, må du svare: "Undskyld, jeg kan kun besvare spørgsmål om Syd For Solen-festivalens information." 
+${FESTIVAL_INFO}`,
+      },
+      {
+        role: "user",
+        content: userQuestion,
+      },
+    ];
+
+    // 4) Call Chat Completion endpoint with GPT-4.1-nano
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4.1-nano", // Use the nano model for cost efficiency
+      messages,
+      temperature: 0.2, // low temperature so it sticks strictly to the provided info
+    });
+
+    const chatResponse = completion.choices[0].message?.content ?? "";
+    return NextResponse.json({ answer: chatResponse });
+  } catch (err: any) {
+    console.error("OpenAI Error:", err.message || err); // Log the error message
+    return NextResponse.json(
+      { error: "Noget gik galt internt. Prøv igen senere." },
+      { status: 500 }
+    );
+  }
+}
