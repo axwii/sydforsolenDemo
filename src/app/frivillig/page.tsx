@@ -1,38 +1,44 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import FaqCategory from "../components/ui/FaqCategory";
-import { getCategoriesWithQuestions } from "@/lib/lib";
+import { FaqCategoryWithQuestions } from "@/types/contentful";
 import Image from "next/image";
 import PageTitle from "../components/ui/PageTitle";
 import { InteractiveHoverButton, InteractiveHoverLink } from "../components/ui/interactive-hover-button";
 import VolunteerSignupModal from "../components/VolunteerSignupModal";
-import { useState, useEffect } from "react";
-import { Tables } from "@/types/supabase";
 
-type FaqCategory = Tables<"faq_categories"> & {
-  faq_questions: Tables<"faq_questions">[];
-};
 
 export default function FrivilligPage() {
-  const [categories, setCategories] = useState<FaqCategory[]>([]);
-  const [error, setError] = useState<Error | null>(null);
+  const [categories, setCategories] = useState<FaqCategoryWithQuestions[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const { data, error } = await getCategoriesWithQuestions();
-      if (error) {
-        setError(error as Error);
-        return;
+    async function fetchCategories() {
+      try {
+        const response = await fetch('/api/faqs');
+        if (!response.ok) throw new Error('Failed to fetch FAQs');
+        const data = await response.json();
+        setCategories(data);
+      } catch (err) {
+        setError('Failed to load FAQ categories');
+        console.error('Error fetching categories:', err);
+      } finally {
+        setIsLoading(false);
       }
-      setCategories(data || []);
-    };
-    fetchData();
+    }
+
+    fetchCategories();
   }, []);
 
+  if (isLoading) {
+    return <div className="container mx-auto px-4 py-10">Loading...</div>;
+  }
+
   if (error) {
-    console.error("Error fetching FAQ categories:", error);
-    return <div>Error loading FAQs</div>;
+    return <div className="container mx-auto px-4 py-10 text-red-500">{error}</div>;
   }
 
   return (
