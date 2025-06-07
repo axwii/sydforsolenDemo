@@ -1,35 +1,33 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getCategoriesWithQuestions } from "@/lib/lib";
 import FaqCategory from "../components/ui/FaqCategory";
 import FilterButtons from "../components/ui/FilterButtons";
 import PageTitle from "../components/ui/PageTitle";
-import { Tables } from "@/types/supabase";
-
-type FaqCategory = Tables<"faq_categories"> & {
-  faq_questions: Tables<"faq_questions">[];
-};
+import { FaqCategoryWithQuestions } from "@/types/contentful";
 
 export default function PraktiskPage() {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
-  const [categories, setCategories] = useState<FaqCategory[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState<FaqCategoryWithQuestions[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    async function fetchCategories() {
       try {
-        const { data, error } = await getCategoriesWithQuestions();
-        if (error) return;
-        if (data) setCategories(data);
+        const response = await fetch('/api/faqs');
+        if (!response.ok) throw new Error('Failed to fetch FAQs');
+        const data = await response.json();
+        setCategories(data);
       } catch (err) {
-        // Handle error silently
+        setError('Failed to load FAQ categories');
+        console.error('Error fetching categories:', err);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
-    };
+    }
 
-    fetchData();
+    fetchCategories();
   }, []);
 
   const handleFilterChange = (filter: string | null) => {
@@ -38,7 +36,13 @@ export default function PraktiskPage() {
 
   const filteredData = activeFilter ? categories.filter((category) => category.id === activeFilter) : categories;
 
-  if (loading) return <div>Loading...</div>;
+  if (isLoading) {
+    return <div className="container mx-auto px-4 py-10">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="container mx-auto px-4 py-10 text-red-500">{error}</div>;
+  }
 
   return (
     <div>

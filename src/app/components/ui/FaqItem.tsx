@@ -1,9 +1,8 @@
 "use client";
 
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { Tables } from "@/types/supabase";
-
-type FaqQuestion = Tables<"faq_questions">;
+import { FaqQuestion } from "@/types/contentful";
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 interface FaqItemProps {
   item: FaqQuestion;
@@ -19,8 +18,10 @@ export default function FaqItem({ item }: FaqItemProps): React.JSX.Element {
           <ChevronUp className="hidden group-open:block" size={20} />
         </div>
       </summary>
-      <div className=" text-black bg-gray-100 p-4 border  border-black">
-        <p className="text-[1rem] font-helvetica-normal">{item.answer}</p>
+      <div className="text-black bg-gray-100 p-4 border border-black">
+        <div className="text-[1rem] font-helvetica-normal">
+          {documentToReactComponents(item.answer)}
+        </div>
       </div>
     </details>
   );

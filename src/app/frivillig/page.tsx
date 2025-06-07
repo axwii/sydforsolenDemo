@@ -1,15 +1,41 @@
+"use client";
+
 import FaqCategory from "../components/ui/FaqCategory";
-import { getCategoriesWithQuestions } from "@/lib/lib";
+import { FaqCategoryWithQuestions } from "@/types/contentful";
 import Image from "next/image";
 import PageTitle from "../components/ui/PageTitle";
 import { InteractiveHoverButton } from "../components/ui/interactive-hover-button";
+import { useState, useEffect } from "react";
 
-export default async function FrivilligPage() {
-  const { data: categories, error } = await getCategoriesWithQuestions();
+export default function FrivilligPage() {
+  const [categories, setCategories] = useState<FaqCategoryWithQuestions[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const response = await fetch('/api/faqs');
+        if (!response.ok) throw new Error('Failed to fetch FAQs');
+        const data = await response.json();
+        setCategories(data);
+      } catch (err) {
+        setError('Failed to load FAQ categories');
+        console.error('Error fetching categories:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchCategories();
+  }, []);
+
+  if (isLoading) {
+    return <div className="container mx-auto px-4 py-10">Loading...</div>;
+  }
 
   if (error) {
-    console.error('Error fetching FAQ categories:', error);
-    return <div>Error loading FAQs</div>;
+    return <div className="container mx-auto px-4 py-10 text-red-500">{error}</div>;
   }
 
   return (
