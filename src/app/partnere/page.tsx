@@ -40,7 +40,7 @@ const headerContent = partners[0];
       
         <div >
           <div className="container mx-auto px-4 py-5">
-            <h1 className="text-lg sm:text-2xl md:text-6xl font-bold mb-12 md:mb-10 font-exposure">{headerContent.pageTitle || "Vi samarbejder med dem, der gør en forskel"}</h1>
+            <h1 className="text-lg sm:text-2xl md:text-6xl font-bold py-10 md:mb-10 font-exposure">{headerContent.pageTitle || "Vi samarbejder med dem, der gør en forskel"}</h1>
             {partners.map((partner) => (
             <div key={partner.id} className="my-4 flex flex-col max-w-3xl">
               <div  className="flex flex-col items-center py-2 md:items-start">
