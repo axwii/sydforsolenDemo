@@ -58,7 +58,7 @@ export async function fetchPartnereEntry(): Promise<Partnere[]> {
         textHeader: item.fields.textHeader,
         paragraph: item.fields.paragraph,
         partnerImage: item.fields.partnerImage?.fields?.file?.url || '',
-        linkurl: item.fields.linkUrl,
+        linkurl: item.fields.linkurl,
         partnerName: item.fields.partnerName,
         partnerText: item.fields.partnerText,
         order: item.fields.order ?? 0,

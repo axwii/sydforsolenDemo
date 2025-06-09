@@ -45,11 +45,11 @@ const headerContent = partners[0];
             <div key={partner.id} className="my-4 flex flex-col max-w-3xl">
               <div  className="flex flex-col items-center py-2 md:items-start">
                 <h6 className="text-lg sm:text-xl lg:text-2xl font-bold mb-2">{partner.textHeader}</h6>
-                <p className="text-sm sm:text-base lg:text-lg">
+                <div className="text-sm sm:text-base lg:text-lg">
                   {partner.paragraph && typeof partner.paragraph === 'object'
                     ? documentToReactComponents(partner.paragraph)
                     : partner.paragraph}
-                </p>
+                </div>
               </div>
             </div>
              ))}
@@ -61,7 +61,14 @@ const headerContent = partners[0];
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {partners.map((partner) => (
             <div key={partner.id} className="flex flex-col items-center md:items-start pt-10">
-              <Link href={partner.linkurl || ""} target="_blank" rel="noopener noreferrer" className="w-1/2 md:w-2/3 aspect-square mb-4 flex items-center mx-auto justify-center hover:scale-105 transition-all duration-300 relative group">
+              <Link 
+                href={typeof partner.linkurl === 'object' 
+                  ? documentToPlainTextString(partner.linkurl)
+                  : partner.linkurl || ''} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-1/2 md:w-2/3 aspect-square mb-4 flex items-center mx-auto justify-center hover:scale-105 transition-all duration-300 relative group"
+              >
                 <img src={partner.partnerImage} alt={partner.partnerName} className="w-full object-contain" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <InteractiveHoverButton variant="light">Gå til side</InteractiveHoverButton>
