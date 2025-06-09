@@ -15,6 +15,9 @@ interface GalleryImageSectionProps {
 
 export default function GalleryImageSection({ 
     images,
+    containerRef,
+    titleRef,
+    lettersRef,
     sectionIndex 
 }: GalleryImageSectionProps) {
     const imagesRef = useRef<HTMLDivElement[]>([]);
@@ -61,7 +64,7 @@ export default function GalleryImageSection({
                 >
                     <Image 
                         src={image}
-                        alt="image"
+                        alt="Gallery image"
                         fill
                         className="object-cover"
                     />
