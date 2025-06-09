@@ -5,7 +5,7 @@ import FaqCategory from "../components/ui/FaqCategory";
 import FilterButtons from "../components/ui/FilterButtons";
 import PageTitle from "../components/ui/PageTitle";
 import { FaqCategoryWithQuestions } from "@/types/contentful";
-import ChatBot from "../components/ChatBot";
+import ChatBot from "../components/ui/ChatBot";
 
 export default function PraktiskPage() {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
