@@ -5,10 +5,11 @@ import PageTitle from "@/app/components/ui/PageTitle";
 import { Accordion } from "@/app/components/ui/accordion";
 import { EarlierYearAccordion } from "@/app/components/ui/earlier-year-accordion";
 import { getFestivalLineupsByYear } from "@/lib/lib";
-import { Tables } from '@/types/supabase';
+import { Tables } from "@/types/supabase";
+import LoadingSpinner from "@/app/components/ui/LoadingSpinner";
 
 type LineupData = {
-  [key: string]: Tables<'festival_lineups'>[];
+  [key: string]: Tables<"festival_lineups">[];
 };
 
 export default function TidligereAar() {
@@ -39,7 +40,7 @@ export default function TidligereAar() {
       <main className="md:min-h-screen">
         <PageTitle title="Tidligere År" baseFontSize={100} />
         <div className="container mx-auto px-4 py-8">
-          <div className="mt-8">Loading...</div>
+          <LoadingSpinner />
         </div>
       </main>
     );
@@ -53,11 +54,7 @@ export default function TidligereAar() {
         <div className="space-y-4 mt-8">
           <Accordion type="single" collapsible className="space-y-4">
             {Object.entries(lineups).map(([year, lineupData]) => (
-              <EarlierYearAccordion 
-                key={year}
-                year={year} 
-                lineupData={lineupData}
-              />
+              <EarlierYearAccordion key={year} year={year} lineupData={lineupData} />
             ))}
           </Accordion>
         </div>

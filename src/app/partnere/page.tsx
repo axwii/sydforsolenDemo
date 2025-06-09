@@ -5,6 +5,7 @@ import { getDataSamarbejde, getPartners } from "@/lib/lib";
 import { Tables } from "@/types/supabase";
 import Link from "next/link";
 import { InteractiveHoverButton } from "@/app/components/ui/interactive-hover-button";
+import LoadingSpinner from "@/app/components/ui/LoadingSpinner";
 type Partner = Tables<"partners">;
 type DataSamarbejde = Tables<"data_samarbejde">;
 
@@ -53,7 +54,7 @@ export default function PartnersPage() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   return (

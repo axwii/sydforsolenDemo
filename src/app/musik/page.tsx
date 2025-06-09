@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import DayProgramSection from "../components/musik/DayProgramSection";
 import { getDaysWithArtists } from "../../lib/lib";
 import { Tables } from "@/types/supabase"; // Import Supabase table types
+import LoadingSpinner from "@/app/components/ui/LoadingSpinner";
 
 // Define types based on your Supabase schema
 type Artist = Tables<"artists">;
@@ -41,13 +42,13 @@ function MusicContent() {
 
   useEffect(() => {
     if (!loading && daysWithArtists.length > 0) {
-      const dayId = searchParams.get('day');
+      const dayId = searchParams.get("day");
       if (dayId) {
-        const dayIndex = daysWithArtists.findIndex(day => day.id === parseInt(dayId));
+        const dayIndex = daysWithArtists.findIndex((day) => day.id === parseInt(dayId));
         if (dayIndex !== -1) {
           const element = document.getElementById(`day-${dayId}`);
           if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
+            element.scrollIntoView({ behavior: "smooth" });
           }
         }
       }
@@ -62,7 +63,7 @@ function MusicContent() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div>Loading...</div> {/* Or a more sophisticated loader component */}
+        <LoadingSpinner />
       </div>
     );
   }
@@ -85,11 +86,13 @@ function MusicContent() {
 
 export default function Music() {
   return (
-    <Suspense fallback={
-      <div className="flex justify-center items-center min-h-screen">
-        <div>Loading...</div>
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div className="flex justify-center items-center min-h-screen">
+          <LoadingSpinner />
+        </div>
+      }
+    >
       <MusicContent />
     </Suspense>
   );

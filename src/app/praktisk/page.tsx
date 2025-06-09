@@ -6,6 +6,7 @@ import FilterButtons from "../components/ui/FilterButtons";
 import PageTitle from "../components/ui/PageTitle";
 import { FaqCategoryWithQuestions } from "@/types/contentful";
 import ChatBot from "../components/ui/ChatBot";
+import LoadingSpinner from "@/app/components/ui/LoadingSpinner";
 
 export default function PraktiskPage() {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
@@ -16,13 +17,13 @@ export default function PraktiskPage() {
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const response = await fetch('/api/faqs');
-        if (!response.ok) throw new Error('Failed to fetch FAQs');
+        const response = await fetch("/api/faqs");
+        if (!response.ok) throw new Error("Failed to fetch FAQs");
         const data = await response.json();
         setCategories(data);
       } catch (err) {
-        setError('Failed to load FAQ categories');
-        console.error('Error fetching categories:', err);
+        setError("Failed to load FAQ categories");
+        console.error("Error fetching categories:", err);
       } finally {
         setIsLoading(false);
       }
@@ -38,7 +39,7 @@ export default function PraktiskPage() {
   const filteredData = activeFilter ? categories.filter((category) => category.id === activeFilter) : categories;
 
   if (isLoading) {
-    return <div className="container mx-auto px-4 py-10">Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   if (error) {

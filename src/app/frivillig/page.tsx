@@ -7,7 +7,7 @@ import Image from "next/image";
 import PageTitle from "../components/ui/PageTitle";
 import { InteractiveHoverButton, InteractiveHoverLink } from "../components/ui/interactive-hover-button";
 import VolunteerSignupModal from "../components/VolunteerSignupModal";
-
+import LoadingSpinner from "@/app/components/ui/LoadingSpinner";
 
 export default function FrivilligPage() {
   const [categories, setCategories] = useState<FaqCategoryWithQuestions[]>([]);
@@ -18,13 +18,13 @@ export default function FrivilligPage() {
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const response = await fetch('/api/faqs');
-        if (!response.ok) throw new Error('Failed to fetch FAQs');
+        const response = await fetch("/api/faqs");
+        if (!response.ok) throw new Error("Failed to fetch FAQs");
         const data = await response.json();
         setCategories(data);
       } catch (err) {
-        setError('Failed to load FAQ categories');
-        console.error('Error fetching categories:', err);
+        setError("Failed to load FAQ categories");
+        console.error("Error fetching categories:", err);
       } finally {
         setIsLoading(false);
       }
@@ -34,7 +34,7 @@ export default function FrivilligPage() {
   }, []);
 
   if (isLoading) {
-    return <div className="container mx-auto px-4 py-10">Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   if (error) {
