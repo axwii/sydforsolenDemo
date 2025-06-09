@@ -1,5 +1,5 @@
 import { createClient } from 'contentful';
-import { FaqCategory, FaqQuestion, FaqCategoryWithQuestions, GalleriImageSet } from '@/types/contentful';
+import { FaqCategory, FaqQuestion, FaqCategoryWithQuestions, GalleriImageSet, Partnere } from '@/types/contentful';
 
 const client = createClient({
     space: process.env.CONTENTFUL_SPACE_ID || '',
@@ -47,6 +47,21 @@ export async function fetchGalleriEntry(): Promise<GalleriImageSet[]> {
                 order: 2,
             },
         ].filter(Boolean),
+    }));
+}
+
+export async function fetchPartnereEntry(): Promise<Partnere[]> {
+    const entries = await client.getEntries({ content_type: 'partnere' });
+    return entries.items.map((item: any) => ({
+        id: item.sys.id,
+        pageTitle: item.fields.pageTitle,
+        textHeader: item.fields.textHeader,
+        paragraph: item.fields.paragraph,
+        partnerImage: item.fields.partnerImage?.fields?.file?.url || '',
+        linkurl: item.fields.linkUrl,
+        partnerName: item.fields.partnerName,
+        partnerText: item.fields.partnerText,
+        order: item.fields.order ?? 0,
     }));
 }
 

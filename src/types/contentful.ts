@@ -30,3 +30,14 @@ export interface GalleriImageSet {
     order: number;
 }
 
+export interface Partnere {
+    id: string;
+    pageTitle: string;
+    textHeader: string;
+    paragraph: string;
+    partnerImage: string;
+    linkurl: string;
+    partnerName: string;
+    partnerText: string;
+    order: number;
+}
