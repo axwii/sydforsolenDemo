@@ -14,36 +14,41 @@ export async function fetchFaqCategories(): Promise<FaqCategory[]> {
       title: item.fields.title,
       order: item.fields.order ?? 0,
     }));
-  }
+}
 
-  export async function fetchGalleriEntry(): Promise<GalleriImageSet[]> {
-    const entries = await client.getEntries({ content_type: 'galleri', order: ['fields.order'] });
+export async function fetchGalleriEntry(): Promise<GalleriImageSet[]> {
+    const entries = await client.getEntries({ content_type: 'galleri' });
+    
+    if (!entries.items || entries.items.length === 0) {
+        return [];
+    }
+
     return entries.items.map((item: any) => ({
-      id: item.sys.id,
-      title: item.fields.title,
-      order: item.fields.order ?? 0,
-      images: [
-        item.fields.leftImage && {
-          id: item.fields.leftImage.sys.id,
-          title: item.fields.leftImage.fields.title,
-          image: item.fields.leftImage.fields.file.url,
-          order: 0,
-        },
-        item.fields.middleImage && {
-          id: item.fields.middleImage.sys.id,
-          title: item.fields.middleImage.fields.title,
-          image: item.fields.middleImage.fields.file.url,
-          order: 1,
-        },
-        item.fields.rightImage && {
-          id: item.fields.rightImage.sys.id,
-          title: item.fields.rightImage.fields.title,
-          image: item.fields.rightImage.fields.file.url,
-          order: 2,
-        },
-      ].filter(Boolean),
+        id: item.sys.id,
+        title: item.fields.title,
+        order: 0,
+        images: [
+            item.fields.leftImage && {
+                id: item.fields.leftImage.sys.id,
+                title: item.fields.leftImage.fields.title,
+                image: item.fields.leftImage.fields.file.url,
+                order: 0,
+            },
+            item.fields.middleImage && {
+                id: item.fields.middleImage.sys.id,
+                title: item.fields.middleImage.fields.title,
+                image: item.fields.middleImage.fields.file.url,
+                order: 1,
+            },
+            item.fields.rightImage && {
+                id: item.fields.rightImage.sys.id,
+                title: item.fields.rightImage.fields.title,
+                image: item.fields.rightImage.fields.file.url,
+                order: 2,
+            },
+        ].filter(Boolean),
     }));
-  }
+}
 
 export async function fetchFaqQuestions(): Promise<FaqQuestion[]> {
     const entries = await client.getEntries({ content_type: 'faqQuestion', order: ['fields.order'], include: 2 });
@@ -56,7 +61,7 @@ export async function fetchFaqQuestions(): Promise<FaqQuestion[]> {
         : [],
       order: item.fields.order ?? 0,
     }));
-  }
+}
 /* export async function getFaqCategories(): Promise<FaqCategoryWithQuestions[]> {
     const entries = await client.getEntries<FaqCategory>({
         
